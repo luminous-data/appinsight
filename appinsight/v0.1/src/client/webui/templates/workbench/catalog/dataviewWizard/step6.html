@@ -1,0 +1,67 @@
+<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Create Dataview (create dataset from existing datasets)</h3>
+		</div>
+		<div class="panel-body">
+			<h4>STEP 6: Select Columns For the New Dataset</h4>
+			<div class="insightal-table">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>&nbsp;</th>
+							<th>New Column Name</th>
+							<th>Include Column</th>
+							<th>Dataset of Origin</th>
+							<th>Column of Origin</th>
+							<th>Data Preview</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat-start="row in wizard.datasetNewColumns track by $index">
+							<td>{{$index + 1}}</td>
+							<td>
+								<input id="dsNewCol-$index" name="dsNewCol-$index" ng-model="wizard.datasetNewColumns[$index].name" type="text" class="form-control"/>
+							</td>
+							<td>
+								<div class="checkbox">
+									<label>
+										<input name="dsNewColShow-{{$index}}" ng-checked="wizard.datasetNewColumns[$index].include" ng-click="wizard.datasetNewColumns[$index].include = !wizard.datasetNewColumns[$index].include" type="checkbox">
+									</label>
+								</div>
+							</td>
+							<td>{{wizard.datasetNewColumns[$index].originDatasetName}}</td>
+							<td>{{wizard.datasetNewColumns[$index].originColumnName}}</td>
+							<td>
+								<button ng-click="showPreviewData = !showPreviewData" class="btn btn-default btn-sm">{{showPreviewData? "Hide" : "Preview"}} Column Data</button>
+							</td>
+						</tr>
+						<tr ng-repeat-end ng-show="showPreviewData">
+							<td colspan="6">
+								<div class="panel panel-default">
+									<table class="table">
+										<tr ng-repeat="dataCell in wizard.datasetNewColumns[$index].data track by $index">
+											<td>{{dataCell}}</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!-- end of table -->
+		</div>
+		<div class="panel-footer">
+			<button ui-sref="user.workbench.catalog.dataviewCreate.step5" class="btn btn-primary">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				Step 5
+			</button>
+			<button ng-click="wizard.goToStep(7, 'user.workbench.catalog.datasets')" class="btn btn-primary pull-right">
+				Save Dataset
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+			<button ui-sref="user.workbench.catalog.datasets" class="btn btn-default pull-right" style="margin-right:10px;">Cancel</button>
+			<div style="clear:both; height:1px; width:100%;"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<div class="modal-header">
+	<h4>
+		Pick Date and Time
+		<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+	</h4>
+</div>
+<div class="modal-body" style="text-align:center;">
+	<div style="display:inline-block;">
+		<datepicker ng-model="modal.date" show-weeks="true" class="well well-sm" style="margin-bottom:-5px;"></datepicker>
+	</div>
+	<br/>
+	<div style="display:inline-block;">
+		<timepicker ng-model="modal.date" hour-step="1" minute-step="1" show-meridian="true"></timepicker>
+	</div>
+</div>
+<div class="modal-footer">
+	<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	<button ng-click="modal.save()" class="btn btn-primary">Set</button>
+</div>

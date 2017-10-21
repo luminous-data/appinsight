@@ -1,0 +1,27 @@
+<form name="appEditForm" novalidate class="form-horizontal" role="form">
+	<div class="modal-header">
+		<h4>
+			{{modal.action}} Application
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			<label for="appName" class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-9">
+				<input id="appName" name="appName" ng-model="modal.appName" ng-class="{'form-control-invalid':!modal.isValid('appName')}" type="text" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group error-box" ng-show="modal.validationErrors.length > 0">
+			<div class="col-sm-9 col-sm-offset-3">
+				<div ng-repeat="error in modal.validationErrors">
+					{{error.message}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.save(appEditForm)" class="btn btn-primary pull-right">Save</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+</form>

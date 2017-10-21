@@ -1,0 +1,46 @@
+<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Create Dataview (create dataset from existing datasets)</h3>
+		</div>
+		<div class="panel-body">
+			<h4>STEP 3: Set Join Conditions and Relationships</h4>
+			<ul class="list-group">
+				<li ng-repeat="condition in wizard.joinConditions track by condition.guid" class="list-group-item form-inline">
+					<div class="form-group">
+						<select id="joinDsLeft" name="joinDsLeft" ng-model="wizard.joinConditions[$index].dsLeft" class="form-control" required
+								ng-options="dataset.guid as dataset.name for dataset in wizard.getSourceDatasets()"></select>
+						<span> JOIN </span>
+						<select id="joinDsRight" name="joinDsRight" ng-model="wizard.joinConditions[$index].dsRight" class="form-control" required
+								ng-options="dataset.guid as dataset.name for dataset in wizard.getSourceDatasets()"></select>
+						<span> ON </span>
+						<select id="joinColLeft" name="joinColLeft" ng-model="wizard.joinConditions[$index].colLeft" class="form-control" required
+								ng-options="column as column for column in wizard.getDatasetColumns(wizard.joinConditions[$index].dsLeft)"></select>
+						<span> = </span>
+						<select id="joinColRight" name="joinColRight" ng-model="wizard.joinConditions[$index].colRight" class="form-control" required
+								ng-options="column as column for column in wizard.getDatasetColumns(wizard.joinConditions[$index].dsRight)"></select>
+					</div>
+					<button ng-click="wizard.removeJoinCondition(condition.guid)" class="btn btn-primary pull-right">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+				</li>
+			</ul>
+			<button ng-click="wizard.addJoinCondition()" class="btn btn-success">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				Add Join Condition
+			</button>
+		</div>
+		<div class="panel-footer">
+			<button ui-sref="user.workbench.catalog.dataviewCreate.step2" class="btn btn-primary">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				Step 2
+			</button>
+			<button ng-click="wizard.goToStep(4, 'user.workbench.catalog.dataviewCreate.step4')" class="btn btn-primary pull-right">
+				Step 4
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			</button>
+			<button ui-sref="user.workbench.catalog.datasets" class="btn btn-default pull-right" style="margin-right:10px;">Cancel</button>
+			<div style="clear:both; height:1px; width:100%;"></div>
+		</div>
+	</div>
+</div>

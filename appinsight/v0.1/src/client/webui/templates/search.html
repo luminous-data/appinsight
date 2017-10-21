@@ -1,0 +1,171 @@
+<div id="search">
+	
+	<!-- search bar -->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="row search">
+				<form name="searchForm" ng-submit="console.debug('SEARCH: main search button'); search.currentPage=1; search.resetChartZoom(); search.search();" novalidate role="form">
+					<div class="col-md-7">
+						<div class="form-group">
+							<input ng-model="search.query" type="text" class="form-control" name="search" placeholder="Enter Search Criteria...." style="border-top-right-radius:0; border-bottom-right-radius:0; border-right-width:0;">
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="select-items">
+							<select ng-model="search.selectedAppGuid" ng-options="app.guid as app.name for app in search.applicationList" class="form-control"></select>
+						</div>
+						<span class="glyphicon glyphicon-triangle-bottom"></span>
+					</div>
+					<div class="col-md-1">
+						<div class="select-items">
+							<select ng-model="search.selectedColGuid" ng-options="col.guid as col.name for col in search.collectionListByApp[search.selectedAppGuid]" class="form-control"></select>
+						</div>
+						<span class="glyphicon glyphicon-triangle-bottom"></span>
+					</div>
+					<div class="col-md-2">
+						<div class="select-items">
+							<select class="form-control" ng-click="search.openDatePickerModal('main')">
+								<option>{{search.startDate.toLocaleString()}} - {{search.endDate.toLocaleString()}}</option>
+							</select>
+						</div>
+						<span class="glyphicon glyphicon-triangle-bottom"></span>						 
+					</div>
+					<div class="col-md-1">
+						<button id="search_submit" type="submit" class="btn btn-default btn-success" style="padding:16px 20px;">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="row">
+		<div class="col-md-3">
+			<aside>
+				<div class="panel-group" id="searchToolsAccordion" role="tablist" aria-multiselectable="true">
+					<div class="panel panel-default">
+						<div class="panel-heading blue" role="tab" id="collapseHeading-1">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#searchToolsAccordion" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+									Facets
+								</a>
+								<a href="" ng-click="search.resetFacets(); search.search();" class="pull-right">
+									Reset
+								</a>
+							</h4>
+						</div>
+						<div id="collapse-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseHeading-1">
+							<div class="panel-body">
+								<div ng-show="search.facets.length == 0"><i>No facets.</i></div>
+								<div ng-repeat="facet in search.facets" class="facet" ng-class="{'facet-selected' : (search.facetsSelected.indexOf(facet.key) >= 0)}">
+									<h3>
+										<a href="" ng-click="search.selectFacet(facet.key); search.search();">{{facet.key}}</a>
+										<span>({{facet.count}})</span>
+									</h3>
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{search.numResults}}" ng-style="{'width' : (facet.count*100/search.numResults)+'%'}">
+											<span class="sr-only">{{facet.count}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading blue" role="tab" id="collapseHeading-2">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#searchToolsAccordion" href="#collapse-2" aria-expanded="true" aria-controls="collapse-2">
+									Fields
+								</a>
+								<a href="" class="pull-right">
+									Reset
+								</a>
+							</h4>
+						</div>
+						<div id="collapse-2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseHeading-2">
+							<div class="panel-body">
+								<form role="form">
+									<div class="checkbox" ng-repeat="(key,value) in search.searchResultColumns">
+										<label>
+											<input type="checkbox" ng-model="search.searchResultColumns[key]" /> {{key}}
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<!-- end of accordion -->
+			</aside>
+		</div>
+		
+		<div class="col-md-9">
+			<header class="blue">
+				<p id="total_results">Found <strong>{{search.numResults}}</strong> results in total. 
+					<!--span id="toggle" class="pull-right">
+						<a class="toggle-sign" href="">
+							<span class="glyphicon glyphicon-menu-hamburger"></span>
+						</a>		
+					</span-->
+				</p>
+			</header>
+			<div id="facets-container">
+				<alert ng-repeat="facetKey in search.facetsSelected" type="info" close="search.unselectFacet(facetKey); search.search();">Doc type: <b>{{facetKey}}</b></alert>
+				<alert ng-if="search.isChartZoomed" type="info" close="console.debug('SEARCH: interval facet button close'); search.resetChartZoom(); search.search();">Time interval: <b>{{search.chartZoomedExtremes.minStr}} - {{search.chartZoomedExtremes.maxStr}}</b></alert>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="graphic-title">
+				Search Visualization
+				<!--a class="sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a-->	
+			</div>
+			<div style="height:200px;">
+				<in-chart options="search.chart" version="search.chart.version"></in-chart>
+			</div>
+			<div class="separator"></div>
+			<div class="graphic-title">
+				Search Results
+				<!--a class="sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a-->	
+			</div>
+			
+			<!-- search result accordion -->
+			<div id="table">
+				<p ng-show="search.numResults > 0" style="clear:both;">
+					Found <strong>{{search.numResults}}</strong> results in total.
+					Showing results {{ (search.currentPage-1)*search.numPerPage + 1 }} -  {{ search.Math.min(search.currentPage*search.numPerPage, search.numResults) }}:
+				</p>
+				<accordion close-others="true" class="panel-group" id="searchResultsAccordion" role="tablist" aria-multiselectable="true">
+					<accordion-group is-open="row.__expanded" ng-repeat="row in search.formattedResults track by row.__idx" class="panel panel-default">
+						<accordion-heading>
+							<div ng-class="{'expanded':row.__expanded}">
+								<div class="plus"><i class="fa" ng-class="{'fa-plus-square-o':!row.__expanded, 'fa-minus-square-o':row.__expanded}"></i></div>
+								<span ng-repeat="(key,value) in row" ng-if="search.searchResultColumns[key]">{{key}} = {{value}}</span>
+							</div>
+						</accordion-heading>
+						<div class="panel-collapse">
+							<div class="panel-body">
+								<div class="search-table">
+									<table class="table" style="margin-bottom:0;">
+										<tbody>
+											<tr ng-repeat="(key,value) in search.formattedResults[row.__idx]" ng-if="key.indexOf('__') != 0">
+												<td>{{key}}</td>
+												<td>{{value}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</accordion-group>
+				</accordion>
+			</div>
+			<!-- end of search result accordion -->
+			
+			<!-- pagination -->
+			<nav id="pagination-block">
+				<pagination ng-model="search.currentPage" ng-change="search.search()" num-pages="search.numPages" items-per-page="search.numPerPage" total-items="search.numResults" max-size="search.maxPagerSize" rotate="false" boundary-links="true"></pagination>
+			</nav>
+		</div>
+	</div>
+	
+</div>

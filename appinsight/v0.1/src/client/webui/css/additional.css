@@ -1,0 +1,452 @@
+/* ADDITIONAL STYLES */
+
+/* General */
+
+a[ng-click]{
+	cursor: pointer;
+}
+
+.hidden-element {
+	display: none !important;
+}
+
+.main-container {
+	/* copy from main.css, line 25*/
+	overflow: hidden;
+	min-height: calc(100% - 70px);
+	height: auto !important;
+	margin: 0 auto;
+}
+
+.ajax-loader {
+	background: url("../images/ajax-loader.gif") transparent 0 0 no-repeat;
+	display: block;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	left: 50%;
+	top: 30%;
+	z-index: 100;
+}
+
+.nav-truncate > li > a {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.dropdown.show-on-hover:hover .dropdown-menu {
+	display: block;
+}
+
+/*.form-control.ng-invalid.ng-dirty,*/
+.form-control-invalid {
+	border-color: #FF0000;
+}
+
+.error-box {
+	color: #FF0000;
+}
+
+li .btn-in-list {
+	float: right;
+	margin: 6px 5px;
+	background: transparent none repeat scroll 0 0;
+	border: none;
+}
+
+.panel-body > h4:first-child {
+	margin-bottom: 20px;
+	margin-top: 0;
+}
+
+.panel-heading.panel-additional {
+	border-top: 1px solid transparent;
+	border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.panel-body.panel-additional {
+	border-top: 1px solid transparent;
+}
+
+.panel-default > .panel-heading.panel-additional,
+.panel-default > .panel-body.panel-additional {
+	border-color: #ddd;
+}
+
+.panel-primary > .panel-heading.panel-additional,
+.panel-primary > .panel-body.panel-additional {
+	border-color: #337ab7;
+}
+
+.file-browser {
+	max-width: 100%;
+	margin-bottom: 15px;
+	border:1px solid #ddd;
+	border-radius: 3px;
+}
+
+.file-browser > .file-browser-heading {
+    color: #333;
+	background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 10px 15px;
+}
+
+.file-browser > .file-browser-body {
+	max-height: 600px;
+	overflow: auto;
+}
+
+.panel-body hr.panel-separator {
+	width: calc(100% + 30px);
+	margin-left: -15px;
+	border-color: #ddd;
+}
+
+#main-messages {
+	width: 98%;
+	margin: 0 auto;
+}
+
+#main-messages > :first-child {
+	margin-top: 10px;
+}
+
+#main-messages > :last-child {
+	margin-bottom: 20px;
+}
+
+#main-messages .alert {
+    margin-bottom: 5px;
+    padding: 10px 30px 10px 10px;
+}
+
+#main-messages .alert-dismissible .close {
+	top: 0;
+} 
+
+.container header .dropdown-menu a {
+  color: #7d7d7d;
+  font-weight: normal;
+  float: none;
+}
+
+.vertical-text {
+	transform: rotate(-90deg);
+	transform-origin: left bottom 0;
+}
+
+input.color {
+	width:50px;
+}
+
+.modal-body .input-group {
+	/*padding-left: 15px;*/
+	/*padding-right: 15px;*/
+}
+
+.sortorder:after {
+	content: '\25b2';
+}
+
+.sortorder.reverse:after {
+	content: '\25bc';
+}
+
+.key-val-table td {
+	padding-right: 15px;
+	padding-top: 10px;
+	vertical-align: top;
+}
+
+.key-val-table tr:first-of-type td {
+	padding-top: 0;
+}
+
+/* End General */
+
+
+/* Modal Dialog */
+
+.modal-header {
+	color: #FFFFFF;
+	background-color: #428BCA;
+	border-radius: 6px 6px 0 0;
+}
+
+.modal-header h4 {
+	margin: 0;
+}
+
+.modal-footer {
+	padding: 10px 20px;
+}
+
+.modal-footer .btn.pull-right {
+	margin-left: 10px;
+}
+
+/* End Modal Dialog */
+
+
+/* Login Page */
+
+#login {
+	position: relative;
+	top: -70px;
+}
+
+#login #top {
+	background-color: #000000;
+}
+
+/* End Login Page */
+
+
+/* Search Page */
+
+#search {
+	margin-top: -20px;
+}
+
+#search .search .form-control {
+	height: 54px;
+}
+
+div#search .row.search span.glyphicon.glyphicon-triangle-bottom {
+	top: -31px !important;
+}
+
+div#search .row.search .select-items select {
+	width: calc(100% + 18px) !important;
+}
+
+.facet > h3,
+.facet > h3 > a {
+	color: #ccc;
+}
+
+.facet.facet-selected > h3,
+.facet.facet-selected > h3 > a {
+	color: #3278b4;
+}
+
+.facet > h3 > a {
+	text-decoration: none;
+}
+
+.facet > h3 > span {
+	font-size: smaller;
+}
+
+.facet .progress-bar {
+	background-color: #ccc;
+}
+
+.facet.facet-selected .progress-bar {
+	background-color: #337ab7;
+}
+
+#facets-container {
+	margin: 15px 0 -15px;
+}
+
+#facets-container .alert {
+	float: left;
+	position: relative;
+	margin: 0 5px 5px 0;
+	padding: 5px 24px 5px 5px;
+}
+
+#facets-container .alert-dismissable .close {
+	position: absolute;
+	right: 7px;
+	top: 5px;
+}
+
+div#search #table #searchResultsAccordion h4 {
+	display: inherit;
+}
+
+div#search #table #searchResultsAccordion div.plus {
+	display: inherit;
+	float: left;
+	padding: 0 10px; 	
+}
+
+#searchResultsAccordion .panel-heading {
+	padding: 0;
+}
+
+#searchResultsAccordion .accordion-toggle > div {
+	padding: 22px 15px;
+}
+
+#searchResultsAccordion .panel-heading .expanded {
+	background-color: #ecf3fe;
+}
+
+#searchResultsAccordion > .panel.group > .panel > .panel-collapse > .panel-body {
+	padding: 0;
+}
+
+#searchResultsAccordion .panel-title > a > * > span {
+	margin-right: 10px;
+	padding-right: 10px;
+	border-right: 1px solid #999;
+}
+
+#searchResultsAccordion .panel-title > a > * > span:last-of-type {
+	margin-right: 0;
+	padding-right: 0;
+	border-right: 0 solid #999;
+}
+
+/* End Search Page */
+
+
+/* Dashboard Page */
+
+.form-control-invalid .form-control {
+	border: 1px solid #FF0000;
+}
+
+.form-label-invalid {
+	color: #FF0000;
+}
+
+/* End Dashboard Page */
+
+
+/* Tenant Admin Page */
+
+.tree-container .tree-group {
+	margin: 2px 0 0 0;
+	clear: both;
+}
+
+.tree-container .tree-application,
+.tree-container .tree-collection,
+.tree-container .tree-document,
+.tree-container .tree-field {
+	margin: 2px 0 0 38px;
+	clear: both;
+}
+
+.tree-group > .btn,
+.tree-application > .btn,
+.tree-collection > .btn,
+.tree-document > .btn,
+.tree-field > .btn {
+	vertical-align: top;
+}
+
+.tree-collection > * > .alert {
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 3px 0px;
+}
+
+.tree-field-info {
+	margin-left: 38px;
+}
+
+.tree-field-info > .alert {
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 0px;
+}
+
+.vertical-heading-container {
+	height: 95px;
+	margin-left: 27px;
+}
+
+.vertical-heading-container > .vertical-text {
+	float: left;
+	position: relative;
+	top: 70px;
+	width: 38px;
+	margin-bottom: 10px;
+}
+
+#tenantadmin-data-table td {
+	vertical-align: top;
+}
+
+#tenantadmin-data-table td a {
+	color: #7d7d7d
+}
+
+#tenantadmin-data-table .list-group {
+	margin-bottom: 0;
+}
+
+/* End Tenant Admin Page */
+
+
+/* Workbench Page */
+
+.filemanager-anchor {
+	display: inline-block;
+	height: 24px;
+	line-height: 24px;
+	text-decoration: none;	
+}
+
+.filemanager-anchor .filemanager-icon {
+	height: 24px;
+	line-height: 24px;
+	width: 24px;
+	margin-right: 2px;
+	background-image: url("../images/jstree-icons-32px.png");
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.filemanager-anchor > .filemanager-icon {
+	margin-right: 2px;
+}
+
+.filemanager-icon:empty {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: top;
+}
+
+.filemanager-anchor .filemanager-icon-directory {
+	background-position: -260px -4px;
+}
+
+.filemanager-anchor .filemanager-icon-file {
+	background-position: -100px -68px;
+}
+
+.filemanager-anchor .filemanager-icon-field {
+	background-position: -66px -68px;
+}
+
+/* addition to default jsTree styles */
+.jstree-default .jstree-field {
+  background: url("../images/jstree-icons-32px.png") -66px -68px no-repeat;
+}
+
+#columnsTBL td {
+	min-width: 150px;
+}
+
+/* End Workbench Page */
+
+
+/* Angular UI - Bootstrap: fix link styles */
+.nav, .pagination, .carousel, .panel-title a, .dropdown-menu a {
+	cursor: pointer;
+}
+/* End Angular UI - Bootstrap: fix link styles */

@@ -1,0 +1,78 @@
+<div id="dashboards-list">
+	<div class="container">
+		<header>
+			<p>
+				Dashboards
+				<span id="toggle">
+					<!--a class="toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a-->		
+					<a id="add" ui-sref="user.dashboardCreate">Add Dashboard</a>	
+				</span>
+			</p>
+		</header>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+			
+				<div class="dashboard-table">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>
+									<a href="" ng-click="dashboards.changeOrderTo('name')">
+										Dashboard Name
+										<span class="sortorder" ng-show="dashboards.listOrderKey === 'name'" ng-class="{reverse:dashboards.listOrderReverse}"></span>
+									</a>
+								</td>
+								<td>
+									<a href="" ng-click="dashboards.changeOrderTo('description')">
+										Description
+										<span class="sortorder" ng-show="dashboards.listOrderKey === 'description'" ng-class="{reverse:dashboards.listOrderReverse}"></span>
+									</a>
+								</td>
+								<td>
+									<a href="" ng-click="dashboards.changeOrderTo('_chartCount')">
+										Charts
+										<span class="sortorder" ng-show="dashboards.listOrderKey === '_chartCount'" ng-class="{reverse:dashboards.listOrderReverse}"></span>
+									</a>
+								</td>
+								<td>
+									Creator
+								</td>
+								<td>
+									<a href="" ng-click="dashboards.changeOrderTo('_creationDate')">
+										Date Created
+										<span class="sortorder" ng-show="dashboards.listOrderKey === '_creationDate'" ng-class="{reverse:dashboards.listOrderReverse}"></span>
+									</a>
+								</td>
+								<td>
+									Actions
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="dashboard in dashboards.dashboardListDisplayed | orderBy:dashboards.listOrderKey:dashboards.listOrderReverse">
+								<td>{{ dashboard.name }}</td>
+								<td>{{ dashboard.description }}</td>
+								<td>{{ dashboard.widgets.length }}</td>
+								<td>{{ dashboard.user }}</td>
+								<td>{{ dashboards.formatDate( dashboard.creationDate ) }}</td>
+								<td>
+									<a ui-sref="user.dashboard({guid:dashboard.guid})">View</a>
+									<a href="" ng-click="dashboards.removeDashboard( dashboard.guid )">Delete</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				
+				</div><!-- end of table -->
+				
+				<!-- pagination -->
+				<nav id="pagination-block">
+					<pagination ng-model="dashboards.dashboardList.currentPage" num-pages="dashboards.dashboardList.numPages" items-per-page="dashboards.dashboardList.numPerPage"
+						total-items="dashboards.dashboardList.numResults" rotate="false" boundary-links="true"></pagination>
+				</nav>
+				<!-- end of pagination -->
+			
+			</div>
+		</div>
+	</div>
+</div>

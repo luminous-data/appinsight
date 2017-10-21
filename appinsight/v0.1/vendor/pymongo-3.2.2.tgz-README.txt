@@ -1,0 +1,4 @@
+pymongo-3.2.2.tgz was created as follows:
+
+git clone https://github.com/mongodb/mongo-python-driver.git pymongo-3.2.2
+tar czf pymongo-3.2.2.tgz pymongo-3.2.2

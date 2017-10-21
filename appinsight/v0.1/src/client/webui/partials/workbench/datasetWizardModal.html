@@ -1,0 +1,186 @@
+<form name="datasetCreateForm" novalidate class="form-horizontal" role="form">
+	
+	<!-- STEP 1 -->
+	<div ng-if="modal.currentStep==1" class="modal-header">
+		<h4>
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+			<div>Add Dataset</div>
+		</h4>
+	</div>
+	<div ng-if="modal.currentStep==1" class="modal-body">
+		<h4>STEP 1: Choose Source File(s)</h4>
+		<div style="overflow:auto;">
+			File manager...
+			<!--
+			<js-tree tree-data="scope"
+				tree-model="modal.treeGetNodeChildren"
+				tree-nodes-to-load="modal.treeNodesToLoad"
+				tree-nodes-to-open="modal.treeNodesToOpen"
+				tree-events="loaded:modal.treeRootLoaded;open_node:modal.treeOpenNodeCB;activate_node:modal.treeActivateNodeCB">
+			</js-tree>
+			-->
+		</div>
+		<div class="form-group error-box" ng-show="modal.validationErrors.length > 0">
+			<div class="col-sm-9 col-sm-offset-3">
+				<div ng-repeat="error in modal.validationErrors">
+					{{error.message}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="modal.currentStep==1" class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.currentStep=2" class="btn btn-primary pull-right">
+			Parse Data
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+
+	
+	<!-- STEP 2 -->
+	<div ng-if="modal.currentStep==2" class="modal-header">
+		<h4>
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+			<div>Add Dataset</div>
+		</h4>
+	</div>
+	<div ng-if="modal.currentStep==2" class="modal-body">
+		<h4>STEP 2: Parse the Data</h4>
+		<div class="form-group">
+			<label for="fileType" class="col-sm-5 control-label">File Type</label>
+			<div class="col-sm-7">
+				<select id="fileType" name="fileType" ng-model="modal.dataset.file.type" ng-class="{'form-control-invalid':!modal.isValid('fileType')}" class="form-control" required
+						ng-options="option.value as option.label for option in modal.options.fileType"></select>
+			</div>
+		</div>
+		<div class="form-group" ng-if="modal.dataset.file.type=='csv'">
+			<label for="rowDelimiter" class="col-sm-5 control-label">Row Delimiter</label>
+			<div class="col-sm-7">
+				<select id="rowDelimiter" name="rowDelimiter" ng-model="modal.dataset.file.rowDelimiter" ng-class="{'form-control-invalid':!modal.isValid('rowDelimiter')}" class="form-control" required
+						ng-options="option.value as option.label for option in modal.options.rowDelimiter"></select>
+			</div>
+		</div>
+		<div class="form-group" ng-if="modal.dataset.file.type=='csv'">
+			<label for="columnDelimiter" class="col-sm-5 control-label">Column Delimiter</label>
+			<div class="col-sm-7">
+				<select id="columnDelimiter" name="columnDelimiter" ng-model="modal.dataset.file.columnDelimiter" ng-class="{'form-control-invalid':!modal.isValid('columnDelimiter')}" class="form-control" required
+						ng-options="option.value as option.label for option in modal.options.columnDelimiter"></select>
+			</div>
+		</div>
+		<div class="form-group" ng-if="modal.dataset.file.type=='csv'">
+			<label for="escapeCharacter" class="col-sm-5 control-label">Escape Character</label>
+			<div class="col-sm-7">
+				<select id="escapeCharacter" name="escapeCharacter" ng-model="modal.dataset.file.escapeCharacter" ng-class="{'form-control-invalid':!modal.isValid('escapeCharacter')}" class="form-control" required
+						ng-options="option.value as option.label for option in modal.options.escapeCharacter"></select>
+			</div>
+		</div>
+		<div class="form-group" ng-if="modal.dataset.file.type=='csv'">
+			<label for="quoteCharacter" class="col-sm-5 control-label">Quote Character</label>
+			<div class="col-sm-7">
+				<select id="quoteCharacter" name="quoteCharacter" ng-model="modal.dataset.file.quoteCharacter" ng-class="{'form-control-invalid':!modal.isValid('quoteCharacter')}" class="form-control" required
+						ng-options="option.value as option.label for option in modal.options.quoteCharacter"></select>
+			</div>
+		</div>
+		<div class="form-group error-box" ng-show="modal.validationErrors.length > 0">
+			<div class="col-sm-7 col-sm-offset-5">
+				<div ng-repeat="error in modal.validationErrors">
+					{{error.message}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="modal.currentStep==2" class="modal-footer" style="margin-top:-15px;">
+		<!--button ng-click="modal.save(datasetCreateForm)" class="btn btn-primary pull-right">Save</button-->
+		<button ng-click="modal.currentStep=3" class="btn btn-primary pull-right">
+			Manage Fields
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</button>
+		<button ng-click="modal.currentStep=1" class="btn btn-primary pull-right">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			Select File
+		</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+	
+	
+	<!-- STEP 3 -->
+	<div ng-if="modal.currentStep==3" class="modal-header">
+		<h4>
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+			<div>Add Dataset</div>
+		</h4>
+	</div>
+	<div ng-if="modal.currentStep==3" class="modal-body">
+		<h4>STEP 3: Manage Fields</h4>
+		<div class="insightal-table">
+			<table id="columnsTBL" class="table">
+				<thead>
+					<tr>
+						<td ng-repeat="col in modal.dataset.columns | orderBy:'order' track by $index">
+							<div style="font-weight:bold; text-align:center;">{{$index+1}}</div>
+							<label for="name-{{$index}}" class="control-label">Name</label>
+							<input id="name-{{$index}}" name="name-{{$index}}" ng-model="col.name" ng-class="{'form-control-invalid':!modal.isValid('name-'+col.guid)}" type="text" class="form-control input-sm" required />
+							<label for="type-{{$index}}" class="control-label">Type</label>
+							<select id="type-{{$index}}" name="type-{{$index}}" ng-model="col.type" ng-class="{'form-control-invalid':!modal.isValid('type-'+col.guid)}" type="text" class="form-control input-sm" required
+									ng-options="option.value as option.label for option in modal.options.columnType">
+							</select>
+							<div class="checkbox">
+								<label>
+									<input name="show-{{$index}}" ng-checked="col.show" ng-click="col.show = !col.show" type="checkbox">
+									Show
+								</label>
+							</div>
+							<label for="order-{{$index}}" class="control-label">Move column to position:</label>
+							<select id="order-{{$index}}" name="order-{{$index}}" ng-model="_newColPosition" ng-class="{'form-control-invalid':!modal.isValid('order-'+col.guid)}" type="text" class="form-control input-sm" required
+									ng-options="option for option in modal.getColumnsOrderArray()" ng-change="modal.changeColumnsOrder(col.guid, _newColPosition - 1); _newColPosition = undefined;">
+							</select>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in modal.exampleData">
+						<!-- | orderBy: -->
+						<td ng-repeat="item in row track by $index">{{item}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- end of table -->
+	</div>
+	<div ng-if="modal.currentStep==3" class="modal-footer" style="margin-top:-15px;">
+		<!--button ng-click="modal.save(datasetCreateForm)" class="btn btn-primary pull-right">Save</button-->
+		<button ng-click="modal.currentStep=4" class="btn btn-primary pull-right">
+			Add Computed Fields
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</button>
+		<button ng-click="modal.currentStep=2" class="btn btn-primary pull-right">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			Parse Data
+		</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+	
+	
+	<!-- STEP 4 -->
+	<div ng-if="modal.currentStep==4" class="modal-header">
+		<h4>
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+			<div>Add Dataset</div>
+		</h4>
+	</div>
+	<div ng-if="modal.currentStep==4" class="modal-body">
+		<h4>STEP 4: Add Computed Fields</h4>
+		
+	</div>
+	<div ng-if="modal.currentStep==4" class="modal-footer" style="margin-top:-15px;">
+		<!--button ng-click="modal.save(datasetCreateForm)" class="btn btn-primary pull-right">Save</button-->
+		<button ng-click="" class="btn btn-primary pull-right">
+			Save Dataset
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</button>
+		<button ng-click="modal.currentStep=3" class="btn btn-primary pull-right">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			Manage Fields
+		</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+</form>

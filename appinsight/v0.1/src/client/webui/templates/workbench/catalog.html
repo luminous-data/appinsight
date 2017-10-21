@@ -1,0 +1,31 @@
+<!-- abstract state user.workbench.catalog -->
+<div id="admin-users">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-lg-1 col-md-1 col-sm-3 col-xs-12">
+				<ul class="nav nav-pills nav-stacked nav-truncate">
+					<li ng-class="{ active: $state.includes('user.workbench.catalog.files') }">
+						<a ui-sref="user.workbench.catalog.files">Files</a>
+					</li>
+					<li ng-class="{ active: $state.includes('user.workbench.catalog.collections') }">
+						<a ui-sref="user.workbench.catalog.collections">Collections</a>
+					</li>
+					<li ng-class="{ active: $state.includes('user.workbench.catalog.datasets') || $state.includes('user.workbench.catalog.datasetCreate') || $state.includes('user.workbench.catalog.dataviewCreate') }">
+						<a ui-sref="user.workbench.catalog.datasets">Datasets</a>
+					</li>
+					<li ng-class="{ active: $state.includes('user.workbench.catalog.workflows') || $state.includes('user.workbench.catalog.workflowExecutions') || $state.includes('user.workbench.catalog.workflowCreate') }">
+						<a ui-sref="user.workbench.catalog.workflows">Workflows</a>
+					</li>
+					<li>
+						<a ng-click="wbCatalog.openNotebook()">Notebook</a>
+					</li>
+				</ul>
+			</div>
+			
+			<!-- user.workbench.catalog child state contents -->
+			<ui-view/>
+			
+		</div>
+	</div>
+</div>

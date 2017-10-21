@@ -1,0 +1,6 @@
+redis-2.6.14-ubuntu-14.04-x86_64.tar was created on 64-bit ubuntu 14.01 by compiling the source as follows:
+
+tar xzf redis-2.6.14.tar.gz
+cd src
+make
+tar cf redis-2.6.14-ubuntu-14.04-x86_64.tar redis-server redis-benchmark redis-cli redis-check-dump redis-check-aof

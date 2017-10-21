@@ -1,0 +1,22 @@
+<!-- abstract state user.settings -->
+<div id="admin-users">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+				<ul class="nav nav-pills nav-stacked nav-truncate">
+					<li ng-class="{ active: $state.includes('user.settings.credentials')  }">
+						<a ui-sref="user.settings.credentials">Credentials</a>
+					</li>
+					<li ng-class="{ active: $state.includes('user.settings.defaults') }">
+						<a ui-sref="user.settings.defaults">Defaults</a>
+					</li>
+				</ul>
+			</div>
+			
+			<!-- user.settings child state contents -->
+			<section ui-view></section>
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,429 @@
+<li ng-if="parentType == 'object' && node.model.type == 'number'" ng-show="!node.isHidden" role="treeitem" id="node-{{node.model.guid}}" class="in-jsontree-node in-jsontree-leaf"
+	aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-anchor" aria-expanded="false" aria-busy="false">
+	<i class="in-jsontree-icon in-jsontree-ocl"></i>
+	<div id="node-{{node.model.guid}}-anchor" class="in-jsontree-anchor" tabindex="-1">
+		<form class="form-inline">
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-key">{{node.model.key}}</label>
+				<div class="input-group" ng-if="!node.isDisabled">
+					<input ng-model="node.model.key" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-key" placeholder="key"/>
+					<span class="input-group-btn">
+						<button ng-click="node.isInEditMode = true; node.oldModelType = node.model.type;" class="btn btn-default" type="button" style="border-radius:0; border-left-width:0;">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</span>
+					<span class="input-group-btn">
+						<button ng-click="node.removeField()" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</span>
+				</div>
+				<input ng-if="node.isDisabled" ng-model="node.model.key" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-key" style="width:257px;" placeholder="key"/>
+			</div>
+			<i ng-if="!node.isInEditMode" role="presentation" class="in-jsontree-line-vertical"></i>
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-value" placeholder="value"/>
+			</div>
+			<div ng-if="node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-type">key 1-1</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						Field Type:
+					</div>
+					<select ng-model="node.model.type" id="node-{{node.model.guid}}-type" class="form-control">
+						<option value="string">string</option>
+						<option value="number">number</option>
+						<option value="boolean">boolean</option>
+						<option value="object">object</option>
+						<option value="array">array</option>
+					</select>
+					<span class="input-group-btn">
+						<button ng-click="node.onFieldTypeChange(); node.isInEditMode = false;" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+</li>
+<li ng-if="parentType == 'object' && node.model.type == 'string'" ng-show="!node.isHidden" role="treeitem" id="node-{{node.model.guid}}" class="in-jsontree-node in-jsontree-leaf"
+	aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-anchor" aria-expanded="false" aria-busy="false">
+	<i class="in-jsontree-icon in-jsontree-ocl"></i>
+	<div id="node-{{node.model.guid}}-anchor" class="in-jsontree-anchor" tabindex="-1">
+		<form class="form-inline">
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-key">{{node.model.key}}</label>
+				<div class="input-group" ng-if="!node.isDisabled">
+					<input ng-model="node.model.key" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-key" placeholder="key"/>
+					<span class="input-group-btn">
+						<button ng-click="node.isInEditMode = true; node.oldModelType = node.model.type;" class="btn btn-default" type="button" style="border-radius:0; border-left-width:0;">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</span>
+					<span class="input-group-btn">
+						<button ng-click="node.removeField()" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</span>
+				</div>
+				<input ng-if="node.isDisabled" ng-model="node.model.key" ng-disabled="node.isDisabled" type="text" class="form-control" style="width:257px;" id="node-{{node.model.guid}}-key" placeholder="key"/>
+			</div>
+			<i ng-if="!node.isInEditMode" role="presentation" class="in-jsontree-line-vertical"></i>
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-value" placeholder="value"/>
+			</div>
+			<div ng-if="node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-type">key 1-1</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						Field Type:
+					</div>
+					<select ng-model="node.model.type" id="node-{{node.model.guid}}-type" class="form-control">
+						<option value="string">string</option>
+						<option value="number">number</option>
+						<option value="boolean">boolean</option>
+						<option value="object">object</option>
+						<option value="array">array</option>
+					</select>
+					<span class="input-group-btn">
+						<button ng-click="node.onFieldTypeChange(); node.isInEditMode = false;" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+</li>
+<li ng-if="parentType == 'object' && node.model.type == 'boolean'" ng-show="!node.isHidden" role="treeitem" id="node-{{node.model.guid}}" class="in-jsontree-node in-jsontree-leaf"
+	aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-anchor" aria-expanded="false" aria-busy="false">
+	<i class="in-jsontree-icon in-jsontree-ocl"></i>
+	<div id="node-{{node.model.guid}}-anchor" class="in-jsontree-anchor" tabindex="-1">
+		<form class="form-inline">
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-key">{{node.model.key}}</label>
+				<div class="input-group" ng-if="!node.isDisabled">
+					<input ng-model="node.model.key" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-key" placeholder="key"/>
+					<span class="input-group-btn">
+						<button ng-click="node.isInEditMode = true; node.oldModelType = node.model.type;" class="btn btn-default" type="button" style="border-radius:0; border-left-width:0;">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</span>
+					<span class="input-group-btn">
+						<button ng-click="node.removeField()" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</span>
+				</div>
+				<input ng-if="node.isDisabled" ng-model="node.model.key" ng-disabled="node.isDisabled" type="text" class="form-control" style="width:257px;" id="node-{{node.model.guid}}-key" placeholder="key"/>
+			</div>
+			<i ng-if="!node.isInEditMode" role="presentation" class="in-jsontree-line-vertical"></i>
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<div class="form-control checkbox in-jsontree-checkboxfield" id="node-{{node.model.guid}}-value">
+					<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="checkbox" >
+					<span>{{node.model.value}}</span>
+				</div>
+			</div>
+			<div ng-if="node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-type">key 1-1</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						Field Type:
+					</div>
+					<select ng-model="node.model.type" id="node-{{node.model.guid}}-type" class="form-control">
+						<option value="string">string</option>
+						<option value="number">number</option>
+						<option value="boolean">boolean</option>
+						<option value="object">object</option>
+						<option value="array">array</option>
+					</select>
+					<span class="input-group-btn">
+						<button ng-click="node.onFieldTypeChange(); node.isInEditMode = false;" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+</li>
+<li ng-if="parentType == 'object' && (node.model.type == 'object' || node.model.type == 'array')" ng-show="!node.isHidden" role="treeitem" id="node-{{node.model.guid}}" class="in-jsontree-node"
+	ng-class="{'in-jsontree-closed':!node.isExpanded, 'in-jsontree-open':node.isExpanded}"
+	aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-anchor" aria-expanded="{{node.isExpanded}}" aria-busy="false">
+	<i ng-click="node.isExpanded = !node.isExpanded" role="presentation" class="in-jsontree-icon in-jsontree-ocl"></i>
+	<div id="node-{{node.model.guid}}-anchor" class="in-jsontree-anchor" tabindex="-1">
+		<form class="form-inline">
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-key">{{node.model.key}}</label>
+				<div class="input-group" ng-if="!node.isDisabled">
+					<input ng-model="node.model.key" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-key" placeholder="key"/>
+					<span class="input-group-btn">
+						<button ng-click="node.isInEditMode = true; node.oldModelType = node.model.type;" class="btn btn-default" type="button" style="border-radius:0; border-left-width:0;">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</span>
+					<span class="input-group-btn">
+						<button ng-click="node.removeField()" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</span>
+				</div>
+				<input ng-if="node.isDisabled" ng-model="node.model.key" ng-disabled="node.isDisabled" type="text" class="form-control" style="width:257px;" id="node-{{node.model.guid}}-key" placeholder="key"/>
+			</div>
+			<i ng-if="!node.isInEditMode && !node.isExpanded" role="presentation" class="in-jsontree-line-vertical"></i>
+			<div ng-if="!node.isInEditMode && !node.isExpanded" ng-click="node.isExpanded = !node.isExpanded" class="form-group in-jsontree-clickable" title="Click to expand">
+				<div class="form-control in-jsontree-stringified" id="node-{{node.model.guid}}-value">
+					{{node.stringValue}}
+				</div>
+			</div>
+			<div ng-if="node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-type">key 1-1</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						Field Type:
+					</div>
+					<select ng-model="node.model.type" id="node-{{node.model.guid}}-type" class="form-control">
+						<option value="string">string</option>
+						<option value="number">number</option>
+						<option value="boolean">boolean</option>
+						<option value="object">object</option>
+						<option value="array">array</option>
+					</select>
+					<span class="input-group-btn">
+						<button ng-click="node.onFieldTypeChange(); node.isInEditMode = false;" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+	<ul ng-if="!node.isInEditMode && node.isExpanded" role="group" class="in-jsontree-children">
+		<in-json-tree-node ng-repeat="item in node.model.value track by item.guid" node-model="item" parent-type="node.model.type" options="options"></in-json-tree-node>
+		<li role="treeitem" id="node-{{node.model.guid}}-addBtn" aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-addBtn-anchor" aria-expanded="false" aria-busy="false" class="in-jsontree-node in-jsontree-last-plus">
+			<div id="node-{{node.model.guid}}-addBtn-anchor" class="in-jsontree-anchor" style="height:22px; line-height:20px; margin-left:-1px;" href="" tabindex="-1">
+				<button ng-click="node.addField()" type="button" class="btn btn-default btn-xs">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+			</div>
+		</li>
+	</ul>
+</li>
+<li ng-if="parentType == 'array' && node.model.type == 'number'" ng-show="!node.isHidden" role="treeitem" id="node-{{node.model.guid}}" class="in-jsontree-node in-jsontree-leaf"
+	aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-anchor" aria-expanded="false" aria-busy="false">
+	<i class="in-jsontree-icon in-jsontree-ocl"></i>
+	<div id="node-{{node.model.guid}}-anchor" class="in-jsontree-anchor" tabindex="-1">
+		<form class="form-inline">
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-value">{{node.model.value}}</label>
+				<div class="input-group" ng-if="!node.isDisabled">
+					<div class="input-group-addon">{{node.model.key}}:</div>
+					<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-value" placeholder="value"/>
+					<span class="input-group-btn">
+						<button ng-click="node.isInEditMode = true; node.oldModelType = node.model.type;" class="btn btn-default" type="button" style="border-radius:0; border-left-width:0;">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</span>
+					<span class="input-group-btn">
+						<button ng-click="node.removeField()" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</span>
+				</div>
+				<div class="input-group" ng-if="node.isDisabled">
+					<div class="input-group-addon">{{node.model.key}}:</div>
+					<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-value" placeholder="value"/>
+				</div>
+			</div>
+			<div ng-if="node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-type">key 1-1</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						Field Type:
+					</div>
+					<select ng-model="node.model.type" id="node-{{node.model.guid}}-type" class="form-control">
+						<option value="string">string</option>
+						<option value="number">number</option>
+						<option value="boolean">boolean</option>
+						<option value="object">object</option>
+						<option value="array">array</option>
+					</select>
+					<span class="input-group-btn">
+						<button ng-click="node.onFieldTypeChange(); node.isInEditMode = false;" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+</li>
+<li ng-if="parentType == 'array' && node.model.type == 'string'" ng-show="!node.isHidden" role="treeitem" id="node-{{node.model.guid}}" class="in-jsontree-node in-jsontree-leaf"
+	aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-anchor" aria-expanded="false" aria-busy="false">
+	<i class="in-jsontree-icon in-jsontree-ocl"></i>
+	<div id="node-{{node.model.guid}}-anchor" class="in-jsontree-anchor" tabindex="-1">
+		<form class="form-inline">
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-value">{{node.model.value}}</label>
+				<div class="input-group" ng-if="!node.isDisabled">
+					<div class="input-group-addon">{{node.model.key}}:</div>
+					<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-value" placeholder="value"/>
+					<span class="input-group-btn">
+						<button ng-click="node.isInEditMode = true; node.oldModelType = node.model.type;" class="btn btn-default" type="button" style="border-radius:0; border-left-width:0;">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</span>
+					<span class="input-group-btn">
+						<button ng-click="node.removeField()" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</span>
+				</div>
+				<div class="input-group" ng-if="node.isDisabled">
+					<div class="input-group-addon">{{node.model.key}}:</div>
+					<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="text" class="form-control" id="node-{{node.model.guid}}-value" placeholder="value"/>
+				</div>
+			</div>
+			<div ng-if="node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-type">key 1-1</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						Field Type:
+					</div>
+					<select ng-model="node.model.type" id="node-{{node.model.guid}}-type" class="form-control">
+						<option value="string">string</option>
+						<option value="number">number</option>
+						<option value="boolean">boolean</option>
+						<option value="object">object</option>
+						<option value="array">array</option>
+					</select>
+					<span class="input-group-btn">
+						<button ng-click="node.onFieldTypeChange(); node.isInEditMode = false;" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+</li>
+<li ng-if="parentType == 'array' && node.model.type == 'boolean'" ng-show="!node.isHidden" role="treeitem" id="node-{{node.model.guid}}" class="in-jsontree-node in-jsontree-leaf"
+	aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-anchor" aria-expanded="false" aria-busy="false">
+	<i class="in-jsontree-icon in-jsontree-ocl"></i>
+	<div id="node-{{node.model.guid}}-anchor" class="in-jsontree-anchor" tabindex="-1">
+		<form class="form-inline">
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-value">{{node.model.value}}</label>
+				<div class="input-group" ng-if="!node.isDisabled">
+					<div class="input-group-addon">{{node.model.key}}:</div>
+					<div class="form-control checkbox in-jsontree-checkboxfield" id="node-{{node.model.guid}}-value">
+						<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="checkbox" >
+						<span>{{node.model.value}}</span>
+					</div>
+					<span class="input-group-btn">
+						<button ng-click="node.isInEditMode = true; node.oldModelType = node.model.type;" class="btn btn-default" type="button" style="border-radius:0; border-left-width:0;">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</span>
+					<span class="input-group-btn">
+						<button ng-click="node.removeField()" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</span>
+				</div>
+				<div class="input-group" ng-if="node.isDisabled">
+					<div class="input-group-addon">{{node.model.key}}:</div>
+					<div class="form-control checkbox in-jsontree-checkboxfield" id="node-{{node.model.guid}}-value">
+						<input ng-model="node.model.value" ng-disabled="node.isDisabled" type="checkbox" >
+						<span>{{node.model.value}}</span>
+					</div>
+				</div>
+			</div>
+			<div ng-if="node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-type">key 1-1</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						Field Type:
+					</div>
+					<select ng-model="node.model.type" id="node-{{node.model.guid}}-type" class="form-control">
+						<option value="string">string</option>
+						<option value="number">number</option>
+						<option value="boolean">boolean</option>
+						<option value="object">object</option>
+						<option value="array">array</option>
+					</select>
+					<span class="input-group-btn">
+						<button ng-click="node.onFieldTypeChange(); node.isInEditMode = false;" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+</li>
+<li ng-if="parentType == 'array' && (node.model.type == 'object' || node.model.type == 'array')" ng-show="!node.isHidden" role="treeitem" id="node-{{node.model.guid}}" class="in-jsontree-node"
+	ng-class="{'in-jsontree-closed':!node.isExpanded, 'in-jsontree-open':node.isExpanded}"
+	aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-anchor" aria-expanded="{{node.isExpanded}}" aria-busy="false">
+	<i ng-click="node.isExpanded = !node.isExpanded" role="presentation" class="in-jsontree-icon in-jsontree-ocl"></i>
+	<div id="node-{{node.model.guid}}-anchor" class="in-jsontree-anchor" tabindex="-1">
+		<form class="form-inline">
+			<div ng-if="!node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-value">{{node.model.value}}</label>
+				<div class="input-group" ng-if="!node.isDisabled">
+					<div ng-click="node.isExpanded = !node.isExpanded" class="input-group-addon in-jsontree-clickable">{{node.model.key}}:</div>
+					<div id="node-{{node.model.guid}}-value" ng-click="node.isExpanded = !node.isExpanded" class="form-control in-jsontree-stringified in-jsontree-clickable" title="Click to expand">
+						{{node.stringValue}}
+					</div>
+					<span class="input-group-btn">
+						<button ng-click="node.isInEditMode = true; node.oldModelType = node.model.type;" class="btn btn-default" type="button" style="border-radius:0; border-left-width:0;">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</span>
+					<span class="input-group-btn">
+						<button ng-click="node.removeField()" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</span>
+				</div>
+				<div class="input-group" ng-if="node.isDisabled">
+					<div ng-click="node.isExpanded = !node.isExpanded" class="input-group-addon in-jsontree-clickable">{{node.model.key}}:</div>
+					<div id="node-{{node.model.guid}}-value" ng-click="node.isExpanded = !node.isExpanded" class="form-control in-jsontree-stringified in-jsontree-clickable" title="Click to expand">
+						{{node.stringValue}}
+					</div>
+				</div>
+			</div>
+			<div ng-if="node.isInEditMode" class="form-group">
+				<label class="sr-only" for="node-{{node.model.guid}}-type">key 1-1</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						Field Type:
+					</div>
+					<select ng-model="node.model.type" id="node-{{node.model.guid}}-type" class="form-control">
+						<option value="string">string</option>
+						<option value="number">number</option>
+						<option value="boolean">boolean</option>
+						<option value="object">object</option>
+						<option value="array">array</option>
+					</select>
+					<span class="input-group-btn">
+						<button ng-click="node.onFieldTypeChange(); node.isInEditMode = false;" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+	<ul ng-if="!node.isInEditMode && node.isExpanded" role="group" class="in-jsontree-children">
+		<in-json-tree-node ng-repeat="item in node.model.value track by item.guid" node-model="item" parent-type="node.model.type" options="options"></in-json-tree-node>
+		<li role="treeitem" id="node-{{node.model.guid}}-addBtn" aria-selected="false" aria-level="1" aria-labelledby="node-{{node.model.guid}}-addBtn-anchor" aria-expanded="false" aria-busy="false" class="in-jsontree-node in-jsontree-last-plus">
+			<div id="node-{{node.model.guid}}-addBtn-anchor" class="in-jsontree-anchor" style="height:22px; line-height:20px; margin-left:-1px;" href="" tabindex="-1">
+				<button ng-click="node.addField()" type="button" class="btn btn-default btn-xs">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+			</div>
+		</li>
+	</ul>
+</li>

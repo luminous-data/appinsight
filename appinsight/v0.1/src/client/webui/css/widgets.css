@@ -1,0 +1,44 @@
+.widget.panel-container {
+	float: left;
+	padding: 10px;
+}
+
+.widget .panel {
+	width: 100%;
+	height: 100%;
+	margin: 0 15px 15px 0;
+}
+
+.widget .panel-body {
+	position: relative;
+	left: 30px;
+	width: calc(100% - 30px);
+	height: calc(100% - 40px);
+}
+
+.widget .panel-heading .btn {
+	margin-top: -6px;
+}
+
+.widget svg {
+	overflow: visible;
+}
+
+.widget nvd3 svg {
+	width: 100%;
+	height: 100%;	
+}
+
+/*.widget .panel-body > * {
+	position: relative;
+	top: -20px;	
+}
+
+.widget-container {
+	clear: both;
+	text-align: center;
+}
+
+.widget > button {
+	float: right;
+}*/

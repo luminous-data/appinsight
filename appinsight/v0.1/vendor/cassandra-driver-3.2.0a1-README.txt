@@ -1,0 +1,20 @@
+I built cassandra-driver-3.2.0a1.tgz as follows:
+
+Browse:
+  https://academy.datastax.com/downloads/download-drivers
+and click "download ZIP".  This fetches a file called python-driver-master.zip.
+Rename to cassandra_driver-3.2.0a1.zip (adjust the version number as appropriate)
+and unzip the file.  In the unzipped directory, run the following, using the
+Anaconda version of Python 2.7:
+
+python setup.py bdist
+cd dist
+tar xzf cassandra-driver-3.2.0a1.post0.linux-x86_64.tar.gz
+cd opt/anaconda-2.3.0
+mv -i lib cassandra-driver-3.2.0a1
+tar czf cassandra-driver-3.2.0a1.tgz cassandra-driver-3.2.0a1
+
+To install, untar into /opt and make a symbolic link into the Anaconda directory:
+cd /opt
+tar xzf /path/to/cassandra_driver-3.2.0a1.tgz
+ln -s /opt/cassandra-driver-3.2.0a1/python2.7/site-packages/cassandra  /opt/Anaconda-2.3.0/lib/python2.7/site-packages/cassandra

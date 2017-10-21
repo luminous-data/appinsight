@@ -1,0 +1,25 @@
+<div id="dashboards-list">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3" style="margin-bottom:15px;">
+				<header>
+					<p>Create Dashboard</p>
+				</header>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+				<form class="form-horizontal" role="form">
+					<div class="form-group" ng-repeat="item in dashboard.configMeta | filter:{modifyType:'user'}">
+						<label for="{{item.name}}" class="col-sm-3 control-label">{{item.title}}</label>
+						<div class="col-sm-9">
+							<input id="{{item.name}}" ng-model="dashboard.config[item.name]" type="text" class="form-control">
+						</div>
+					</div>
+				</form>
+				<button ng-click="dashboard.save()" class="btn btn-primary pull-right">Create</button>
+				<div style="clear:both; height:15px; border-bottom:1px solid #ccc;"></div>
+			</div>
+		</div>
+	</div>
+</div>

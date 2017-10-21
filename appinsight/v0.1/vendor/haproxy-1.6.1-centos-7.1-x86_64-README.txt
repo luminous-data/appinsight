@@ -1,0 +1,6 @@
+haproxy-1.6.1-centos-7.1-x86_64.tgz was created on 64-bit centos 7.1  as follows:
+
+make DESTDIR=/opt/haproxy-1.6.1 TARGET=linux2628
+make DESTDIR=/opt/haproxy-1.6.1 install
+cd /opt
+tar czf /tmp/haproxy-1.6.1-centos-7.1-x86_64.tgz haproxy-1.6.1

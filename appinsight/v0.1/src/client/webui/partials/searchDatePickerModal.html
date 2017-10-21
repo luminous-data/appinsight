@@ -1,0 +1,60 @@
+<div class="modal-header">
+	<h4>
+		Pick Search Date and Time Range
+		<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+	</h4>
+</div>
+<div class="modal-body">
+	<form name="searchForm" novalidate role="form">
+		<div class="form-group" style="margin-bottom:0;">
+			<div class="row">
+				<label for="startDateINP" class="col-sm-6 control-label">Start Date and Time</label>
+				<label for="endDateINP"   class="col-sm-6 control-label">End Date and Time  </label>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<input id="startDateINP" type="datetime-local" class="form-control" ng-model="modal.startDate" />
+					<div style="display:inline-block;">
+				        <datepicker ng-model="modal.startDate" show-weeks="true" class="well well-sm" style="margin-bottom:-5px;"></datepicker>
+				    </div>
+				</div>
+				<div class="col-sm-6">
+					<input id="endDateINP" type="date" class="form-control" ng-model="modal.endDate" />
+					<div style="display:inline-block;">
+				        <datepicker ng-model="modal.endDate" show-weeks="true" class="well well-sm" style="margin-bottom:-5px;"></datepicker>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-1">
+					<timepicker ng-model="modal.startDate" hour-step="1" minute-step="1" show-meridian="true"></timepicker>
+				</div>
+				<div class="col-sm-4 col-sm-offset-2">
+					<timepicker ng-model="modal.endDate" hour-step="1" minute-step="1" show-meridian="true"></timepicker>
+				</div>
+			</div>
+		</div>
+	</form>
+	<hr/>
+	<table class="table-padded" style="width:100%;">
+		<tr>
+			<td><button ng-click="modal.setRange('hourThis')" class="btn btn-primary" style="width:100%;">This Hour</button></td>
+			<td><button ng-click="modal.setRange('dayThis')" class="btn btn-primary" style="width:100%;">Today</button></td>
+			<td><button ng-click="modal.setRange('weekThis')" class="btn btn-primary" style="width:100%;">This Week</button></td>
+			<td><button ng-click="modal.setRange('monthThis')" class="btn btn-primary" style="width:100%;">This Month</button></td>
+		</tr>
+		<tr>
+			<td><button ng-click="modal.setRange('hourLast')" class="btn btn-primary" style="width:100%;">Last Hour</button></td>
+			<td><button ng-click="modal.setRange('dayLast')" class="btn btn-primary" style="width:100%;">Yesterday</button></td>
+			<td><button ng-click="modal.setRange('weekLast')" class="btn btn-primary" style="width:100%;">Last Week</button></td>
+			<td><button ng-click="modal.setRange('monthLast')" class="btn btn-primary" style="width:100%;">Last Month</button></td>
+		</tr>
+	</table>
+	
+</div>
+<div class="modal-footer">
+	<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	<button ng-click="modal.save()" class="btn btn-primary">Set</button>
+</div>

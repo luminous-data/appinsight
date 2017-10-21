@@ -1,0 +1,40 @@
+<div class="modal-header">
+	<h4>
+		Edit Chart Settings
+		<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+	</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form">
+		<div ng-repeat="item in modal.chartConfigCommon | filter:{modifyType:'user'}" class="form-group">
+			<label for="{{item.name}}" class="col-sm-3 control-label">{{item.title}}</label>
+			<div class="col-sm-9">
+				<input id="{{item.name}}" ng-model="modal.config[item.name]" placeholder="{{item.title}}" type="text" class="form-control">
+			</div>
+		</div>
+		<div ng-repeat="item in modal.specificChartConfig | filter:{modifyType:'user'}" ng-show="modal.isConfigDisplayed(item.displayCondition)" class="form-group">
+			<label for="{{item.name}}" class="col-sm-3 control-label">{{item.title}}</label>
+			<div ng-if="item.configType=='text'" class="col-sm-9">
+				<input id="{{item.name}}" ng-model="modal.config.specific[item.name]" placeholder="{{item.title}}" type="text" class="form-control">
+			</div>
+			<div ng-if="item.configType=='checkbox'" class="col-sm-9">
+				<label ng-repeat="checkbox in item.values" class="checkbox-inline">
+					<input ng-model="modal.config.specific[item.name]" type="checkbox">
+					{{checkbox.label}}
+				</label>
+			</div>
+			<div ng-if="item.configType=='checkboxSingle'" class="col-sm-9">
+				<label class="checkbox-inline">
+					<input ng-model="modal.config.specific[item.name]" type="checkbox">
+				</label>
+			</div>
+			<div ng-if="item.configType=='select'" class="col-sm-9">
+				<select id="{{item.name}}" ng-model="modal.config.specific[item.name]" ng-options="option.value as option.label for option in item.values" class="form-control"></select>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	<button ng-click="modal.save()" class="btn btn-primary">Set</button>
+</div>

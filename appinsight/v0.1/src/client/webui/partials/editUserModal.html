@@ -1,0 +1,57 @@
+<form name="userEditForm" novalidate class="form-horizontal" role="form">
+	<div class="modal-header">
+		<h4>
+			{{users.userAction}} User
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			<label for="userRole" class="col-sm-3 control-label">Role</label>
+			<div class="col-sm-9">
+				<select id="userRole" name="userRole" ng-model="users.currentUser.role" ng-class="{'form-control-invalid':!modal.isValid('userRole')}" class="form-control" required
+						ng-options="option.value as option.label for option in users.availableRoles"></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="userName" class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-9">
+				<input id="userName" name="userName" ng-model="users.currentUser.name" ng-class="{'form-control-invalid':!modal.isValid('userName')}" type="text" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="userEmail" class="col-sm-3 control-label">E-mail</label>
+			<div class="col-sm-9">
+				<input id="userEmail" name="userEmail" ng-model="users.currentUser.email" ng-class="{'form-control-invalid':!modal.isValid('userEmail')}" type="email" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="userPassword" class="col-sm-3 control-label">Password</label>
+			<div class="col-sm-9">
+				<input id="userPassword" name="userPassword" ng-model="users.currentUser.password" ng-class="{'form-control-invalid':!modal.isValid('userPassword')}" type="password" class="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="userPasswordCheck" class="col-sm-3 control-label">Retype Password</label>
+			<div class="col-sm-9">
+				<input id="userPasswordCheck" name="userPasswordCheck" ng-model="users.currentUser.passwordCheck" ng-class="{'form-control-invalid':!modal.isValid('userPasswordCheck')}" type="password" class="form-control" />
+			</div>
+		</div>
+		<div class="form-group" style="margin-top:-15px;" ng-show="users.userAction == 'Edit'">
+			<div class="col-sm-9 col-sm-offset-3">
+				If you leave the Password field empty, the password will stay unchanged.
+			</div>
+		</div>
+		<div class="form-group error-box" ng-show="modal.validationErrors.length > 0">
+			<div class="col-sm-9 col-sm-offset-3">
+				<div ng-repeat="error in modal.validationErrors">
+					{{error.message}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.save(userEditForm)" ng-disabled="modal.isUnchanged(users.currentUserOriginal, users.currentUser)" class="btn btn-primary pull-right">Save</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+</form>

@@ -1,0 +1,210 @@
+<!-- abstract state user.workbench.visuals -->
+<div id="admin-users">
+	<div class="container">
+		
+		<div class="row">
+			<section class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+				<header>
+					<p>Plot Data</p>
+				</header>
+			</section>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+				<div class="panel panel-default" style="margin-top:20px;">
+					<div class="panel-heading" ng-click="panelTimeCollapsed = !panelTimeCollapsed" style="cursor:pointer;">
+						Time Interval
+					</div>
+					<div class="panel-body" collapse="panelTimeCollapsed">
+						<div class="form-group">
+							<label for="time-interval-start" class="control-label">Start Date and Time</label>
+							<div class="input-group">
+								<input ng-model="visuals.interval.start" id="time-interval-start" type="datetime-local" class="form-control"/>
+								<div ng-click="visuals.openDatepicker('start')" class="input-group-addon" style="cursor:pointer;">
+									<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+								</div>
+							</div>
+							<label for="time-interval-end" class="control-label">End Date and Time</label>
+							<div class="input-group">
+								<input ng-model="visuals.interval.end" id="time-interval-end" type="date" class="form-control"/>
+								<div ng-click="visuals.openDatepicker('end')" class="input-group-addon" style="cursor:pointer;">
+									<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+								</div>
+							</div>
+						</div>
+						<hr/>
+						<table class="table-padded" style="width:100%;">
+							<tr>
+								<td><button ng-click="visuals.setRange('hourThis')" class="btn btn-default" style="width:100%;">This Hour</button></td>
+								<td><button ng-click="visuals.setRange('dayThis')" class="btn btn-default" style="width:100%;">Today</button></td>
+								<td><button ng-click="visuals.setRange('weekThis')" class="btn btn-default" style="width:100%;">This Week</button></td>
+								<td><button ng-click="visuals.setRange('monthThis')" class="btn btn-default" style="width:100%;">This Month</button></td>
+							</tr>
+							<tr>
+								<td><button ng-click="visuals.setRange('hourLast')" class="btn btn-default" style="width:100%;">Last Hour</button></td>
+								<td><button ng-click="visuals.setRange('dayLast')" class="btn btn-default" style="width:100%;">Yesterday</button></td>
+								<td><button ng-click="visuals.setRange('weekLast')" class="btn btn-default" style="width:100%;">Last Week</button></td>
+								<td><button ng-click="visuals.setRange('monthLast')" class="btn btn-default" style="width:100%;">Last Month</button></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" ng-click="panelSourceCollapsed = !panelSourceCollapsed" style="cursor:pointer;">
+						Horizontal Axis - Data Source
+					</div>
+					<div class="panel-body" collapse="panelSourceCollapsed">
+						<div class="form-group">
+							<label for="x-source-type">Data Source Type</label>
+							<select ng-model="visuals.x.sourceType" ng-options="type.value as type.label for type in visuals.sourceTypes.x" id="x-source-type" class="form-control"></select>
+						</div>
+						<div ng-if="visuals.x.sourceType == 'document'">
+							<div class="form-group">
+								<label for="x-group">Group</label>
+								<select ng-model="visuals.x.group" ng-options="node.id as node.name for node in visuals.groups" id="x-group" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="x-app">Application</label>
+								<select ng-model="visuals.x.app" ng-options="node.id as node.name for node in visuals.apps[visuals.x.group]" id="x-app" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="x-col">Collection</label>
+								<select ng-model="visuals.x.col" ng-options="node.id as node.name for node in visuals.cols[visuals.x.app]" id="x-col" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="x-doc">Document</label>
+								<select ng-model="visuals.x.doc" ng-options="docName as docName for (docName, fields) in visuals.docs[visuals.x.col]" id="x-col" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="x-field">Field</label>
+								<select ng-model="visuals.x.field" ng-options="fieldName as fieldName for (fieldName, attributes) in visuals.docs[visuals.x.col][visuals.x.doc]" id="x-field" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="x-attr">Attributes</label>
+								<select ng-model="visuals.x.attr" ng-options="attrName as attrName for attrName in visuals.docs[visuals.x.col][visuals.x.doc][visuals.x.field]" id="x-attr" class="form-control"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" ng-click="panelSourceCollapsed = !panelSourceCollapsed" style="cursor:pointer;">
+						Vertical Axis - Data Source
+					</div>
+					<div class="panel-body" collapse="panelSourceCollapsed">
+						<div class="form-group">
+							<label for="y-source-type">Data Source Type</label>
+							<select ng-model="visuals.y.sourceType" ng-options="type.value as type.label for type in visuals.sourceTypes.y" id="y-source-type" class="form-control"></select>
+						</div>
+						<div ng-if="visuals.y.sourceType == 'document'">
+							<div class="form-group">
+								<label for="y-group">Group</label>
+								<select ng-model="visuals.y.group" ng-options="node.id as node.name for node in visuals.groups" id="y-group" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="y-app">Application</label>
+								<select ng-model="visuals.y.app" ng-options="node.id as node.name for node in visuals.apps[visuals.y.group]" id="y-app" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="y-col">Collection</label>
+								<select ng-model="visuals.y.col" ng-options="node.id as node.name for node in visuals.cols[visuals.y.app]" id="y-col" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="y-doc">Document</label>
+								<select ng-model="visuals.y.doc" ng-options="docName as docName for (docName, fields) in visuals.docs[visuals.y.col]" id="y-col" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="y-field">Field</label>
+								<select ng-model="visuals.y.field" ng-options="fieldName as fieldName for (fieldName, attributes) in visuals.docs[visuals.y.col][visuals.y.doc]" id="y-field" class="form-control"></select>
+							</div>
+							<div class="form-group">
+								<label for="y-attr">Attributes</label>
+								<select ng-model="visuals.y.attr" ng-options="attrName as attrName for attrName in visuals.docs[visuals.y.col][visuals.y.doc][visuals.y.field]" id="y-attr" class="form-control"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+				<button ng-click="visuals.getChartData(); panelTimeCollapsed=true; panelSourceCollapsed=true;" ng-disabled="!(visuals.x.attr.length > 0 && visuals.y.attr.length > 0)" class="btn btn-primary btn-lg" style="width:100%; margin-bottom:20px;" type="button">Display Data</button>
+			</div>
+		</div>
+		
+		<div class="row" ng-if="visuals.x.sourceType == 'time'">
+			<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" ng-click="panelCorrCollapsed = !panelCorrCollapsed" style="cursor:pointer;">
+						Select Series to Display
+					</div>
+					<div class="panel-body" collapse="panelCorrCollapsed">
+						<div ng-if="visuals.y.series.length == 0"><i>No series to select.<br/>First, choose a data source in the panel above and hit "Display&nbsp;Data".</i></div>
+						<div ng-repeat="series in visuals.y.series" class="checkbox">
+							<label>
+								<input ng-checked="visuals.y.seriesSelected.indexOf(series.id) >= 0" ng-click="visuals.toggleSeries('y', series.id)" type="checkbox"> {{series.name}}
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row" ng-if="visuals.x.sourceType != 'time'">
+			<div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" ng-click="panelCorrCollapsed = !panelCorrCollapsed" style="cursor:pointer;">
+						Horizontal Axis - Select Data to Correlate 
+					</div>
+					<div class="panel-body" collapse="panelCorrCollapsed">
+						<div ng-if="visuals.x.series.length == 0"><i>No series to select.<br/>First, choose a data source in the panel above and hit "Display&nbsp;Data".</i></div>
+						<div ng-repeat="series in visuals.x.series" class="checkbox">
+							<label>
+								<input ng-checked="visuals.x.seriesSelected.indexOf(series.id) >= 0" ng-click="visuals.toggleSeries('x', series.id)" type="checkbox"> {{series.name}}
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" ng-click="panelCorrCollapsed = !panelCorrCollapsed" style="cursor:pointer;">
+						Vertical Axis - Select Data to Correlate
+					</div>
+					<div class="panel-body" collapse="panelCorrCollapsed">
+						<div ng-if="visuals.y.series.length == 0"><i>No series to select.<br/>First, choose a data source in the panel above and hit "Display&nbsp;Data".</i></div>
+						<div ng-repeat="series in visuals.y.series" class="checkbox">
+							<label>
+								<input ng-checked="visuals.y.seriesSelected.indexOf(series.id) >= 0" ng-click="visuals.toggleSeries('y', series.id)" type="checkbox"> {{series.name}}
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+				<div class="panel panel-default" style="margin-top:15px;">
+					<div class="panel-heading" ng-click="panelChartCollapsed = !panelChartCollapsed" style="cursor:pointer;">
+						Chart
+					</div>
+					<div class="panel-body" collapse="panelChartCollapsed" style="height:400px;">
+						<div ng-if="visuals.chart.type.length > 0">
+							<in-chart options="visuals.chart" version="visuals.chart.version"></in-chart>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>

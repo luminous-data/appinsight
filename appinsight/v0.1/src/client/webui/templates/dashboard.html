@@ -1,0 +1,50 @@
+<div id="dashboards">
+	<div class="container">
+	<header>
+		<div class="pull-right">
+			<div class="dropdown">
+				<a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-dashboard" style="top:30px; left:-124px;">
+					<li role="presentation" ng-class="{disabled: dashboard==null}"><a ng-click="openEditDashboardModal()" role="menuitem" tabindex="-1">Edit</a></li>
+					<li role="presentation" ng-class="{disabled: dashboard==null}"><a ng-click="saveDashboard()" role="menuitem" tabindex="-1">Save</a></li>
+					<li role="presentation" ng-class="{disabled: dashboard==null}"><a ng-click="removeDashboard()" role="menuitem" tabindex="-1">Remove</a></li>
+				</ul>
+			</div>		
+		</div>
+		<div id="toggle" class="pull-right">
+			<a id="add" href="" ng-click="openEditChartModal()">Add Chart</a>	
+			<a href="" ng-show="hasUnsavedChanges" ng-click="saveDashboard()" style="margin-right:20px;">Save Changes</a>
+		</div>
+		<p style="min-height:20px;">
+			{{dashboard.name}}
+		</p>
+	</header>
+	
+	<div ng-show="hasUnsavedChanges" class="row http">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<h5 class="bg-info" style="border-radius:4px; padding:8px 8px 8px 25px;">You have unsaved dashboard changes.</h5>
+		</div>
+	</div>
+	
+	<div class="row http">
+		<div ng-repeat="chart in widgetList | orderBy:'add.position' track by chart.guid"
+			 ng-class="{'col-md-12':chart.add.width!=50, 'col-sm-12':chart.add.width!=50, 'col-xs-12':chart.add.width!=50, 'col-md-6':chart.add.width==50, 'col-sm-6':chart.add.width==50, 'col-xs-6':chart.add.width==50}"
+			 ng-style="chart.add.panelStyle">
+			<div class="graphic-title">
+				{{chart.add.title}}
+				<div class="dropdown pull-right">
+					<a toggle="dropdown" class="dropdown-toggle toggle-sign sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li role="presentation"><a ng-click="editWidget(chart.guid)" role="menuitem" tabindex="-1">Configure Chart</a></li>
+						<li role="presentation"><a ng-click="moveWidget(chart.guid, -1)" role="menuitem" tabindex="-1">Move Chart Left</a></li>
+						<li role="presentation"><a ng-click="moveWidget(chart.guid, 1)" role="menuitem" tabindex="-1">Move Chart Right</a></li>
+						<li role="presentation"><a ng-click="removeWidget(chart.guid)" role="menuitem" tabindex="-1">Remove Chart</a></li>
+					</ul>
+				</div>
+			</div>
+			<in-chart options="chart" version="chart.version"></in-chart>
+		</div>
+	</div>
+	</div>
+</div>
+

@@ -1,0 +1,316 @@
+<form name="addWidgetForm" class="form-horizontal" role="form" ng-submit="modal.save()" novalidate>
+	<div class="modal-header">
+		<h4>
+			{{(modal.action=="edit")? "Edit" : "Add"}} Chart
+			<button type="button" ng-click="modal.cancel()" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<tabset>
+			<tab ng-repeat="group in modal.optionGroups">
+				<tab-heading>{{group.title}}</tab-heading>
+				<div style="height:15px;"> &nbsp; <!-- spacer --> </div>
+				
+				<!-- BEGIN all option groups except "series", general options part -->
+				<div ng-if="group.name != 'series'" ng-repeat="item in modal.chartOptionsMeta | filter:modal.filterByGroupFn(group.name) | filter:{modifyType:'user'} | filter:modal.isMetaConditionTrue" class="form-group">
+					<label for="{{item.name}}" class="col-sm-5 control-label" ng-class="{'form-label-invalid': modal.isFieldValid(item.name)}">
+						{{item.title}}
+						<a href="" tooltip="{{item.userInfo}}" tooltip-placement="right" ng-if="modal.isString(item.userInfo)"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+					</label>
+					<!-- text -->
+					<div ng-if="item.configType == 'text'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<input id="{{item.name}}" ng-model="modal.chartOptions[item.name]" type="text" class="form-control">
+					</div>
+					<!-- text area -->
+					<div ng-if="item.configType == 'textArea'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<textarea ng-model="modal.chartOptions[item.name]" class="form-control" rows="3"></textarea>
+					</div>
+					<!-- select one -->
+					<div ng-if="item.configType == 'selectOne'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<select id="{{item.name}}" ng-model="modal.chartOptions[item.name]" ng-options="option.value as option.label for option in item.values" class="form-control"></select>
+					</div>
+					<!-- select one - type radio -->
+					<div ng-if="item.configType == 'selectOneRadio'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<div ng-repeat="option in item.values" class="radio">
+							<label>
+								<input type="radio" ng-model="modal.chartOptions[item.name]" ng-value="option.value">
+								{{option.label}}
+							</label>
+						</div>
+					</div>
+					<!-- select multiple -->
+					<div ng-if="item.configType == 'selectMultiple'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<div ng-repeat="option in item.values" class="checkbox">
+							<label>
+								<input type="checkbox" value="{{option.value}}" ng-checked="modal.chartOptions[item.name].indexOf(option.value) >= 0" ng-click="modal.toggleCheckboxValue(item.name, option.value)">
+								{{option.label}}
+							</label>
+						</div>
+					</div>
+					<!-- select boolean (true/false) -->
+					<div ng-if="item.configType == 'selectBoolean'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<div class="checkbox">
+							<label ng-class="{'form-label-invalid': modal.isFieldValid(item.name)}">
+								<input ng-model="modal.chartOptions[item.name]" type="checkbox">
+							</label>
+						</div>
+					</div>
+					<!-- select integer number -->
+					<div ng-if="item.configType == 'integer'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<input id="{{item.name}}" ng-model="modal.chartOptions[item.name]" type="number" class="form-control">
+					</div>
+					<!-- select integer number range -->
+					<div ng-if="item.configType == 'integerRange'" class="col-sm-7 input-group" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<input id="{{item.name}}" ng-model="modal.chartOptions[item.name]" type="range" class="form-control" min="{{item.valueMin}}" max="{{item.valueMax}}">
+						<div class="input-group-addon">{{modal.chartOptions[item.name]}}</div>
+					</div>
+					<!-- select color -->
+					<div ng-if="item.configType == 'color'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<input id="{{item.name}}" ng-model="modal.chartOptions[item.name]" type="color" class="form-control color">
+					</div>
+				</div>
+				<!-- END all option groups except "series", general options part -->
+				
+				<!-- BEGIN all option groups except "series", additional options part -->
+				<div ng-if="group.name != 'series'" ng-repeat="item in modal.chartOptionsAddMeta | filter:modal.filterByGroupFn(group.name) | filter:{modifyType:'user'} | filter:modal.isMetaConditionTrue" class="form-group">
+					<label for="{{item.name}}" class="col-sm-5 control-label" ng-class="{'form-label-invalid': modal.isFieldValid(item.name)}">
+						{{item.title}}
+						<a href="" tooltip="{{item.userInfo}}" tooltip-placement="right" ng-if="modal.isString(item.userInfo)"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+					</label>
+					<!-- text -->
+					<div ng-if="item.configType == 'text'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<input id="{{item.name}}" ng-model="modal.chartOptions.add[item.name]" type="text" class="form-control">
+					</div>
+					<!-- text area -->
+					<div ng-if="item.configType == 'textArea'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<textarea ng-model="modal.chartOptions.add[item.name]" class="form-control" rows="3"></textarea>
+					</div>
+					<!-- select one -->
+					<div ng-if="item.configType == 'selectOne'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<select id="{{item.name}}" ng-model="modal.chartOptions.add[item.name]" ng-options="option.value as option.label for option in item.values" class="form-control"></select>
+					</div>
+					<!-- select one - type radio -->
+					<div ng-if="item.configType == 'selectOneRadio'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<div ng-repeat="option in item.values" class="radio">
+							<label>
+								<input type="radio" ng-model="modal.chartOptions.add[item.name]" ng-value="option.value">
+								{{option.label}}
+							</label>
+						</div>
+					</div>
+					<!-- select multiple -->
+					<div ng-if="item.configType == 'selectMultiple'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<div ng-repeat="option in item.values" class="checkbox">
+							<label>
+								<input type="checkbox" value="{{option.value}}" ng-checked="modal.chartOptions.add[item.name].indexOf(option.value) >= 0" ng-click="modal.toggleCheckboxValue(item.name, option.value, 'add')">
+								{{option.label}}
+							</label>
+						</div>
+					</div>
+					<!-- select boolean (true/false) -->
+					<div ng-if="item.configType == 'selectBoolean'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<div class="checkbox">
+							<label ng-class="{'form-label-invalid': modal.isFieldValid(item.name)}">
+								<input ng-model="modal.chartOptions.add[item.name]" type="checkbox">
+							</label>
+						</div>
+					</div>
+					<!-- select integer number -->
+					<div ng-if="item.configType == 'integer'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<input id="{{item.name}}" ng-model="modal.chartOptions.add[item.name]" type="number" class="form-control">
+					</div>
+					<!-- select integer number range -->
+					<div ng-if="item.configType == 'integerRange'" class="col-sm-7 input-group" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<input id="{{item.name}}" ng-model="modal.chartOptions.add[item.name]" type="range" class="form-control" min="{{item.valueMin}}" max="{{item.valueMax}}">
+						<div class="input-group-addon">{{modal.chartOptions.add[item.name]}}</div>
+					</div>
+					<!-- select color -->
+					<div ng-if="item.configType == 'color'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+						<input id="{{item.name}}" ng-model="modal.chartOptions.add[item.name]" type="color" class="form-control color">
+					</div>
+				</div>
+				<!-- END all option groups except "series", additional options part -->
+				
+				<!-- BEGIN "series" option group -->
+				<div ng-if="group.name == 'series'" style="margin-top:-15px;">
+					<accordion close-others="true" class="form-group">
+						<accordion-group ng-repeat="series in modal.chartOptions.series" is-open="modal.accordionOpened[series.guid]">
+							<accordion-heading>
+								{{(series.name=="")? "Unnamed Series " + ($index+1) : series.name}}
+								<button type="button" ng-click="modal.removeSeries(series.guid)" class="btn btn-default btn-xs" style="float:right; margin-top:-2px;"><span class="glyphicon glyphicon-remove" style="margin-top:2px;"></span></button>
+							</accordion-heading>
+							<!-- BEGIN accordion body -->
+							<div ng-controller="editChartModalSeriesCtrl as seriesModel">
+								<!-- standard series options, defined by InCharts module -->
+								<div ng-repeat="item in seriesModel.seriesOptionsMeta | filter:{modifyType:'user'} | filter:seriesModel.isMetaConditionTrue" style="clear:both;">
+									<label for="{{item.name}}" class="col-sm-5 control-label">
+										{{item.title}}
+										<a href="" tooltip="{{item.userInfo}}" ng-if="modal.isString(item.userInfo)"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+									</label>
+									<!-- text -->
+									<div ng-if="item.configType == 'text'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<input id="{{item.name}}" ng-model="series[item.name]" type="text" class="form-control input-sm">
+									</div>
+									<!-- text area -->
+									<div ng-if="item.configType == 'textArea'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<textarea ng-model="series[item.name]" class="form-control input-sm" rows="3"></textarea>
+									</div>
+									<!-- select one -->
+									<div ng-if="item.configType == 'selectOne'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<select id="{{item.name}}" ng-model="series[item.name]" ng-options="option.value as option.label for option in item.values" class="form-control input-sm"></select>
+									</div>
+									<!-- select one - type radio -->
+									<div ng-if="item.configType == 'selectOneRadio'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<div ng-repeat="option in item.values" class="radio">
+											<label>
+												<input type="radio" ng-model="series[item.name]" ng-value="option.value">
+												{{option.label}}
+											</label>
+										</div>
+									</div>
+									<!-- select multiple -->
+									<div ng-if="item.configType == 'selectMultiple'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<div ng-repeat="option in item.values" class="checkbox">
+											<label>
+												<input type="checkbox" value="{{option.value}}" ng-checked="series[item.name].indexOf(option.value) >= 0" ng-click="modal.toggleCheckboxValue(item.name, option.value, 'series', series.guid)">
+												{{option.label}}
+											</label>
+										</div>
+									</div>
+									<!-- select boolean (true/false) -->
+									<div ng-if="item.configType == 'selectBoolean'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<div class="checkbox">
+											<label ng-class="{'form-label-invalid': modal.isFieldValid(item.name)}">
+												<input ng-model="series[item.name]" type="checkbox">
+											</label>
+										</div>
+									</div>
+									<!-- select integer number -->
+									<div ng-if="item.configType == 'integer'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<input id="{{item.name}}" ng-model="series[item.name]" type="number" class="form-control input-sm">
+									</div>
+									<!-- select integer number range -->
+									<div ng-if="item.configType == 'integerRange'" class="col-sm-7 input-group" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<input id="{{item.name}}" ng-model="series[item.name]" type="range" class="form-control input-sm" min="{{item.valueMin}}" max="{{item.valueMax}}">
+										<div class="input-group-addon">{{series[item.name]}}</div>
+									</div>
+									<!-- select color -->
+									<div ng-if="item.configType == 'color'" class="col-sm-7" ng-class="{'form-control-invalid': modal.isFieldValid(item.name)}">
+										<input id="{{item.name}}" ng-model="series[item.name]" type="color" class="form-control input-sm color">
+									</div>
+								</div>
+								<div class="col-sm-12" style="border-top:1px solid #CCCCCC; margin-top:15px;">
+									<h4>Metric Definition</h4>
+								</div>
+								<!-- metric options, defined by Dashboard module -->
+								<label for="metricType" class="col-sm-5 control-label">Type</label>
+								<div class="col-sm-7">
+									<select id="metricType" ng-model="series.metric.type" ng-options="type as type for type in modal.metricTypes" class="form-control input-sm"></select>
+								</div>
+								<div ng-if="series.metric.type == 'metric'">
+									<label for="application" class="col-sm-5 control-label">Application</label>
+									<div class="col-sm-7">
+										<select id="application" ng-model="series.metric.application" ng-options="item[0] as item[1] for item in modal.applicationList" class="form-control input-sm"></select>
+									</div>
+									<label for="collection" class="col-sm-5 control-label">Collection</label>
+									<div class="col-sm-7">
+										<select id="collection" ng-model="series.metric.collection" ng-options="key as value.name for (key,value) in modal.applicationFields[ series.metric.application ].collections" class="form-control input-sm"></select>
+									</div>
+									<label for="document" class="col-sm-5 control-label">Document</label>
+									<div class="col-sm-7">
+										<select id="document" ng-model="series.metric.document" ng-options="key as key for (key,value) in modal.applicationFields[ series.metric.application ].collections[ series.metric.collection ].documents" class="form-control input-sm"></select>
+									</div>
+									<label for="field" class="col-sm-5 control-label">Field</label>
+									<div class="col-sm-7">
+										<select id="field" ng-model="series.metric.field" ng-options="key as key for (key,value) in modal.applicationFields[ series.metric.application ].collections[ series.metric.collection ].documents[ series.metric.document ].fields" class="form-control input-sm"></select>
+									</div>
+									<label for="attribute" class="col-sm-5 control-label">Attribute</label>
+									<div class="col-sm-7">
+										<select id="attribute" ng-model="series.metric.attribute" ng-options="attribute for attribute in modal.applicationFields[ series.metric.application ].collections[ series.metric.collection ].documents[ series.metric.document ].fields[ series.metric.field ].attributes" class="form-control input-sm"></select>
+									</div>
+									<label for="searchTerm" class="col-sm-5 control-label">Search Term</label>
+									<div class="col-sm-7">
+										<input id="searchTerm" ng-model="series.metric.searchTerm" type="text" class="form-control input-sm" />
+									</div>
+								</div>
+								<div ng-if="series.metric.type == 'sensor'">
+									<label for="sensor" class="col-sm-5 control-label">Sensor</label>
+									<div class="col-sm-7">
+										<select id="sensor" ng-model="series.metric.sensor" ng-options="item['id'] as item['sensorName'] for item in modal.sensorList" class="form-control input-sm"></select>
+									</div>	
+									<label for="sensorPeriod" class="col-sm-5 control-label">Show Data for</label>
+									<div class="col-sm-7">
+										<select id="sensorPeriod" ng-model="series.metric.sensorPeriod" ng-options="item[0] as item[1] for item in modal.sensorPeriodList" class="form-control input-sm"></select>
+									</div>
+								</div>
+								
+								<div style="clear:both; height:1px;"></div>
+								<!--div ng-if="modal.isSeriesType( ['scatter','arearange','columnrange'], series, modal.chartOptions )">
+									<label for="useMetric2" class="col-sm-5 control-label">
+										Use 2nd metric
+									</label>
+									<div class="col-sm-7">
+										<div class="checkbox">
+											<label>
+												<input name="useMetric2" ng-model="series.metric2Enabled" type="checkbox">
+												(used in scatter plot for X-axis instead of time)
+											</label>
+										</div>
+									</div>
+								</div-->
+								<div ng-if="modal.isSeriesType( ['scatter','arearange','columnrange'], series, modal.chartOptions )" style="border-top:1px solid #CCCCCC; margin-top:15px;">
+									<div class="col-sm-12">
+										<h4>2nd Metric Definition</h4>
+									</div>
+									<div ng-if="modal.isSeriesType('scatter', series, modal.chartOptions)" class="col-sm-12">
+										For scatter plot Y-values of the first metric are used to plot points on X-axis and Y-values for the second metric are used on Y-axis. 
+									</div>
+									<div ng-if="modal.isSeriesType('arearange', series, modal.chartOptions)" class="col-sm-12">
+										For area-range type series the Y-values of the first metric are used for the minimum of the range and Y-values of the second metric are used for the maximum.
+									</div>
+									<div ng-if="modal.isSeriesType('columnrange', series, modal.chartOptions)" class="col-sm-12">
+										For column-range type series the Y-values of the first metric are used for the minimum of the range and Y-values of the second metric are used for the maximum.
+									</div>
+									<!-- metric options, defined by Dashboard module -->
+									<label for="application2" class="col-sm-5 control-label">Application</label>
+									<div class="col-sm-7">
+										<select id="application2" ng-model="series.metric2.application" ng-options="item[0] as item[1] for item in modal.applicationList" class="form-control input-sm"></select>
+									</div>
+									<label for="collection2" class="col-sm-5 control-label">Collection</label>
+									<div class="col-sm-7">
+										<select id="collection2" ng-model="series.metric2.collection" ng-options="key as value.name for (key,value) in modal.applicationFields[ series.metric2.application ].collections" class="form-control input-sm"></select>
+									</div>
+									<label for="document2" class="col-sm-5 control-label">Document</label>
+									<div class="col-sm-7">
+										<select id="document2" ng-model="series.metric2.document" ng-options="key as key for (key,value) in modal.applicationFields[ series.metric2.application ].collections[ series.metric2.collection ].documents" class="form-control input-sm"></select>
+									</div>
+									<label for="field2" class="col-sm-5 control-label">Field</label>
+									<div class="col-sm-7">
+										<select id="field2" ng-model="series.metric2.field" ng-options="key as key for (key,value) in modal.applicationFields[ series.metric2.application ].collections[ series.metric2.collection ].documents[ series.metric2.document ].fields" class="form-control input-sm"></select>
+									</div>
+									<label for="attribute2" class="col-sm-5 control-label">Attribute</label>
+									<div class="col-sm-7">
+										<select id="attribute2" ng-model="series.metric2.attribute" ng-options="attribute for attribute in modal.applicationFields[ series.metric2.application ].collections[ series.metric2.collection ].documents[ series.metric2.document ].fields[ series.metric2.field ].attributes" class="form-control input-sm"></select>
+									</div>
+								</div>
+							</div>
+							<!-- END accordion body -->
+						</accordion-group>
+					</accordion>
+					<button type="button" ng-click="modal.addSeries()" class="btn btn-success btn-sm pull-left">Add Series</button>
+				</div>
+				<!-- END "series" option group -->
+				
+			</tab>
+		</tabset>
+		<div class="form-group error-box row" ng-show="modal.validationErrors.__length > 0">
+			<div ng-repeat="(fieldName, error) in modal.validationErrors" class="col-sm-12">
+				{{error.message}}
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" ng-click="modal.cancel()" class="btn">Cancel</button>
+		<input type="submit" ng-disabled="addWidgetForm.$invalid" class="btn btn-primary" value="{{(modal.action=='edit')? 'Update Chart' : 'Add Chart'}}" />
+	</div>
+</form>

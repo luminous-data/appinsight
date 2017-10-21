@@ -1,0 +1,63 @@
+<div id="admin-users">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<header>
+					<div class="pull-right">
+						<a href="" ng-click="admin.editTenant('', 'Create')">
+							<span class="glyphicon glyphicon-plus"></span>
+							Create Tenant
+						</a>
+					</div>
+					<p>Tenant Admins</p>
+				</header>
+				
+				<div class="users-table">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									<a href="" ng-click="admin.changeOrderTo('name')">
+										Name
+										<span class="sortorder" ng-show="admin.listOrderKey === 'name'" ng-class="{reverse:admin.listOrderReverse}"></span>
+									</a>
+								</th>
+								<th>
+									<a href="" ng-click="admin.changeOrderTo('email')">
+										Email
+										<span class="sortorder" ng-show="admin.listOrderKey === 'email'" ng-class="{reverse:admin.listOrderReverse}"></span>
+									</a>
+								</th>
+								<th>
+									<a href="" ng-click="admin.changeOrderTo('guid')">
+										GUID
+										<span class="sortorder" ng-show="admin.listOrderKey === 'guid'" ng-class="{reverse:admin.listOrderReverse}"></span>
+									</a>
+								</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="tenant in admin.tenants | orderBy:admin.listOrderKey:admin.listOrderReverse | startFrom:(admin.pgCurrentPage-1)*admin.pgNumPerPage | limitTo:admin.pgNumPerPage">
+								<td>{{tenant.name}}</td>
+								<td>{{tenant.email}}</td>
+								<td>{{tenant.guid}}</td>
+								<td>
+									<a href="" ng-click="admin.editTenant(tenant.guid, 'Edit')">Edit</a>
+									<a href="" ng-click="admin.deleteTenant(tenant.guid)">Delete</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- end of table -->
+				
+				<!-- pagination -->
+				<nav id="pagination-block">
+					<pagination ng-model="admin.pgCurrentPage" num-pages="admin.pgNumPages" items-per-page="admin.pgNumPerPage"
+						total-items="admin.pgNumResults" rotate="false" boundary-links="true"></pagination>
+				</nav>
+				<!-- end of pagination -->
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,51 @@
+<form name="sensorEditForm" novalidate class="form-horizontal" role="form">
+	<div class="modal-header">
+		<h4>
+			{{modal.action}} Sensor
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-9">
+				<input id="name" name="name" ng-model="modal.name" ng-class="{'form-control-invalid':!modal.isValid('name')}" type="text" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="col-sm-3 control-label">Description</label>
+			<div class="col-sm-9">
+				<input id="description" name="description" ng-model="modal.description" ng-class="{'form-control-invalid':!modal.isValid('description')}" type="text" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="measurement" class="col-sm-3 control-label">Measurement</label>
+			<div class="col-sm-9">
+				<input id="measurement" name="measurement" ng-model="modal.measurement" ng-class="{'form-control-invalid':!modal.isValid('measurement')}" type="text" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="measurementType" class="col-sm-3 control-label">Measurement Type</label>
+			<div class="col-sm-9">
+				<input id="measurementType" name="measurementType" ng-model="modal.measurementType" ng-class="{'form-control-invalid':!modal.isValid('measurementType')}" type="text" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="unit" class="col-sm-3 control-label">Unit</label>
+			<div class="col-sm-9">
+				<input id="unit" name="unit" ng-model="modal.unit" ng-class="{'form-control-invalid':!modal.isValid('unit')}" type="text" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group error-box" ng-show="modal.validationErrors.length > 0">
+			<div class="col-sm-9 col-sm-offset-3">
+				<div ng-repeat="error in modal.validationErrors">
+					{{error.message}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.save(sensorEditForm)" class="btn btn-primary pull-right">Save</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+</form>

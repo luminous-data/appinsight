@@ -1,0 +1,27 @@
+<div class="widget panel-container" ng-style="config.panelStyle">
+	<div class="panel panel-default">
+		<div class="panel-heading" title="{{config.description}}">
+			{{config.name}}
+			<ng-include src="'widgets/partials/widgetMenu.html'"></ng-include>
+		</div>
+		<div class="panel-body">
+			<nvd3-stacked-area-chart
+		    	data="formattedData"
+		    	noData="No Data"
+		    	version="{{config.transientCfg.version}}"
+		        id="{{config.type}}-{{config.guid}}"
+		        x="config.specific.x(config.guid)"
+	            y="config.specific.y(config.guid)"
+	            xAxisTickFormat="config.specific.xAxisTickFormat(config.guid)"
+		        yAxisTickFormat="config.specific.yAxisTickFormat(config.guid)"
+		        showXAxis="true"
+		        showYAxis="true"
+		        xAxisLabel="{{config.specific.xAxisLabel}}"
+		        yAxisLabel="{{config.specific.yAxisLabel}}"
+		        showLegend="{{config.specific.showLegend}}"
+		        useInteractiveGuideLine="true">
+	        	<svg></svg>
+		    </nvd3-stacked-area-chart>
+		</div>
+	</div>
+</div>

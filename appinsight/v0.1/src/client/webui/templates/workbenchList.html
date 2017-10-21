@@ -1,0 +1,32 @@
+<div class="widget panel-container" style="width:50%; height:400px;">
+	<div class="panel panel-default">
+		<div class="panel-heading" title="">
+			{{workbenches.chartConfig.title.text}}
+		</div>
+		<div class="panel-body">
+			<in-chart options="workbenches.chartOptions" version="workbenches.chartVersion" stack="workbenches.chartStack" stack-idx="workbenches.chartStackIdx"></in-chart>
+		</div>
+	</div>
+</div>
+<button ng-click="workbenches.chartRedraw()">Redraw Chart</button>
+<span>Chart Version: {{workbenches.chartVersion}}</span><br/>
+<button ng-click="workbenches.chartAddSeries()">Add Series</button>
+			
+
+<a ui-sref="user.workbenchCreate" class="btn btn-success pull-right" role="button">Create Workbench</a>
+<table class="table table-striped" style="clear:both;">
+	<thead>
+		<tr>
+			<th>Workbench Name</th>
+			<th>Actions</th>
+		</tr>
+		</thead>
+	<tbody>
+		<tr data-ng-repeat="workbench in workbenches.workbenchList">
+			<td>{{ workbench[1]  }}</td>
+			<td>
+				<button ui-sref="user.workbench({guid:workbench[0]})" class="btn btn-warning">Show</button>
+			</td>
+		</tr>
+	</tbody>
+</table>

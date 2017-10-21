@@ -1,0 +1,13 @@
+<div class="modal-header">
+	<h4>
+		Confirm
+		<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+	</h4>
+</div>
+<div class="modal-body">
+	Do you want to delete plugin "{{modal.plugin.name}}"?
+</div>
+<div class="modal-footer">
+	<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	<button ng-click="modal.save()" class="btn btn-danger">Delete</button>
+</div>

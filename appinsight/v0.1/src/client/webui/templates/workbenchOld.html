@@ -1,0 +1,105 @@
+<div class="row" style="margin-top:15px; padding-left:15px; position:relative;">
+	<button ng-click="workbench.isLeftPanelCollapsed = false" ng-show="workbench.isLeftPanelCollapsed" class="toggle-left-btn">&gt;</button>
+	<div collapse="workbench.isLeftPanelCollapsed" class="col-md-3" style="padding-right:0px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Add Chart
+				<button class="close" aria-hidden="true" type="button" ng-click="workbench.isLeftPanelCollapsed = true" style="font-weight:normal;">&lt;</button>
+			</div>
+			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<div class="col-sm-9 col-sm-offset-3" style="font-weight:bold;">Metric</div>
+						
+						<label for="metricNameINP" class="col-sm-3 control-label">Name</label>
+						<div class="col-sm-9">
+							<input id="metricNameINP" ng-model="workbench.addChartConfig.metric.name" type="text" class="form-control input-sm" />
+						</div>
+						
+						<label for="applicationSEL" class="col-sm-3 control-label">Application</label>
+						<div class="col-sm-9">
+							<select id="applicationSEL" ng-model="workbench.addChartConfig.metric.application" ng-options="item[0] as item[1] for item in workbench.applicationList" class="form-control input-sm"></select>
+						</div>
+					
+						<label for="collectionSEL" class="col-sm-3 control-label">Collection</label>
+						<div class="col-sm-9">
+							<select id="collectionSEL" ng-model="workbench.addChartConfig.metric.collection" ng-options="key as value.name for (key,value) in workbench.applicationFields[ workbench.addChartConfig.metric.application ].collections" class="form-control input-sm"></select>
+						</div>
+					
+						<label for="documentSEL" class="col-sm-3 control-label">Document</label>
+						<div class="col-sm-9">
+							<select id="documentSEL" ng-model="workbench.addChartConfig.metric.document" ng-options="key as key for (key,value) in workbench.applicationFields[ workbench.addChartConfig.metric.application ].collections[ workbench.addChartConfig.metric.collection ].documents" class="form-control input-sm"></select>
+						</div>
+					
+						<label for="field"SEL class="col-sm-3 control-label">Field</label>
+						<div class="col-sm-9">
+							<select id="fieldSEL" ng-model="workbench.addChartConfig.metric.field" ng-options="key as key for (key,value) in workbench.applicationFields[ workbench.addChartConfig.metric.application ].collections[ workbench.addChartConfig.metric.collection ].documents[ workbench.addChartConfig.metric.document ].fields" class="form-control input-sm"></select>
+						</div>
+					
+						<label for="attributeSEL" class="col-sm-3 control-label">Attribute</label>
+						<div class="col-sm-9">
+							<select id="attributeSEL" ng-model="workbench.addChartConfig.metric.attribute" ng-options="attribute for attribute in workbench.applicationFields[ workbench.addChartConfig.metric.application ].collections[ workbench.addChartConfig.metric.collection ].documents[ workbench.addChartConfig.metric.document ].fields[ workbench.addChartConfig.metric.field ].attributes" class="form-control input-sm"></select>
+						</div>
+						
+						<label for="searchTermIMP" class="col-sm-3 control-label">Search Term</label>
+						<div class="col-sm-9">
+							<input id="searchTermINP" ng-model="workbench.addChartConfig.metric.searchTerm" type="text" class="form-control input-sm" />
+						</div>
+						
+						<div style="clear:both; height:1px;">&nbsp;</div>
+					</div>
+					<hr style="margin-top:0;"/>
+					
+					<div class="form-group">
+						<div class="col-sm-9 col-sm-offset-3" style="font-weight:bold;">Time Interval</div>
+						
+						<label for="timeframeStartINP" class="col-sm-3 control-label">From</label>
+						<div class="col-sm-9">
+							<button type="button" ng-click="workbench.openDatePickerModal($event)" class="btn btn-default" style="position:absolute; right:15px; height:30px; border-bottom-left-radius:0; border-top-left-radius:0;"><i class="glyphicon glyphicon-calendar"></i></button>
+							<input id="timeframeStartINP" ng-model="workbench.addChartConfig.timeframe.start" type="text" class="form-control input-sm" style="padding-right:45px;" />
+						</div>
+						
+						<label for="timeframeEndINP" class="col-sm-3 control-label">To</label>
+						<div class="col-sm-9">
+							<button type="button" ng-click="workbench.openDatePickerModal($event)" class="btn btn-default" style="position:absolute; right:15px; height:30px; border-bottom-left-radius:0; border-top-left-radius:0;"><i class="glyphicon glyphicon-calendar"></i></button>
+							<input id="timeframeEndINP" ng-model="workbench.addChartConfig.timeframe.end" type="text" class="form-control input-sm" style="padding-right:45px;" />
+						</div>
+						
+						<div style="clear:both; height:1px;">&nbsp;</div>
+					</div>
+					<hr style="margin-top:0;"/>
+					
+					<div class="form-group">
+						<div class="col-sm-9 col-sm-offset-3" style="font-weight:bold;">Chart Type</div>
+						
+						<label for="chartTypeSEL" class="col-sm-3 control-label">Chart Type</label>
+						<div class="col-sm-9">
+							<select id="chartTypeSEL" ng-model="workbench.addChartConfig.chartType" ng-options="item['type'] as item['typeName'] for item in workbench.chartTypes" class="form-control input-sm"></select>
+						</div>
+						
+						<div style="clear:both; height:1px;">&nbsp;</div>
+					</div>
+					<hr style="margin-top:0;"/>
+
+					<div class="form-group">
+						<button type="button" class="btn btn-primary pull-right" ng-click="workbench.addChart()">Add Chart</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div ng-class="{'col-md-12':workbench.isLeftPanelCollapsed, 'col-md-9':!workbench.isLeftPanelCollapsed}">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 style="display:inline-block; margin:7px 0 0;">{{workbench.config.name}}</h3>
+			</div>
+			<div class="panel-body">
+				
+				<in-chart-static-old ng-repeat="chart in workbench.chartList | orderBy:'position' track by chart.guid" config="chart" api="workbench.widgetApi"></in-chart-static-old>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+

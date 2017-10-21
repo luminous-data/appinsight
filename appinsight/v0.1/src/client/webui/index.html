@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html ng-app="insightal" ng-strict-di scroll-to-top-when="message_added" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title ng-bind="$state.current.data.pageTitle">Insightal</title>
+    
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet" type="text/css">
+	<link href="vendor/jsTree/themes/default/style.min.css" rel="stylesheet" />
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+	<link href="inJsonTree/css/in-json-tree.css" rel="stylesheet" type="text/css">
+	<link href="css/additional.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+	<div class="ajax-loader" data-loading></div>
+
+	<div class="main-container">
+	
+		<nav ng-controller="NavCtrl as nav" class="ng-cloak navbar navbar-inverse">
+			<div class="container-fluid">
+				<a id="pageTop"></a>
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a ui-sref="user.home" class="navbar-brand">Insightal</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs">
+					<ul class="nav navbar-nav">
+						<li access-level="nav.accessLevels.anon" user-id="{{nav.user.userId}}" ui-sref-active="active">
+							<a ui-sref="anon.register">Register</a>
+						</li>
+						<li access-level="nav.accessLevels.nonAdmin" user-id="{{nav.user.userId}}" ui-sref-active="active">
+							<a ui-sref="user.home">Home</a>
+						</li>
+						<li access-level="nav.accessLevels.nonAdmin" user-id="{{nav.user.userId}}" ui-sref-active="active">
+							<a ui-sref="user.dashboardList">Dashboard</a>
+						</li>
+						<li access-level="nav.accessLevels.nonAdmin" user-id="{{nav.user.userId}}" ui-sref-active="active">
+							<a ui-sref="user.workbench">Workbench</a>
+						</li>
+						<li access-level="nav.accessLevels.admin" user-id="{{nav.user.userId}}" ui-sref-active="active">
+							<a ui-sref="admin.siteadmin">Site Admin</a>
+						</li>
+						<li access-level="nav.accessLevels.tenantOnly" user-id="{{nav.user.userId}}" ui-sref-active="active">
+							<a ui-sref="admin.tenantadmin">Tenant Admin</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li access-level="nav.accessLevels.user" user-id="{{nav.user.userId}}">
+							<a toggle="modal" href="#myModal">
+								<span class="glyphicon glyphicon-user"></span> Welcome <span>{{nav.user.username}}</span>
+								<span ng-class="{'label-info': nav.user.role.title == nav.userRoles.user.title, 'label-success': nav.user.role.title == nav.userRoles.admin.title}" class="label">{{nav.user.role.title}}</span>
+							</a>
+						</li>
+		                <li access-level="nav.accessLevels.user" user-id="{{nav.user.userId}}" ui-sref-active="active">
+		                	<a ui-sref="user.settings.credentials"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+	                	</li>
+		                <li access-level="nav.accessLevels.user" user-id="{{nav.user.userId}}">
+		                	<a href="" ng-click="nav.logout()"><span class="glyphicon glyphicon-off"></span> Log Out</a>
+		                </li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div id="main-messages" ng-controller="MsgCtrl as msg" class="ng-cloak">
+			<alert ng-repeat="message in msg.messages" type="{{message.type}}" close="msg.closeMessage($index)">{{message.body}}</alert>
+			<button ng-click="msg.clearAll()" ng-show="msg.messages.length>0" class="btn btn-danger">Clear All Messages</button>
+		</div>
+	
+        <!-- BEGIN MAIN CONTENT -->
+        <ui-view class="ng-scope ng-cloak"></ui-view>
+        <!-- END MAIN CONTENT -->
+	    
+	</div>
+	
+
+    <footer ng-controller="FooterCtrl as footer" class="footer">
+		<a href="" ng-click="footer.scrollToTop()"><img src="images/arrow-top.png" alt="top"></a>
+		<p> ©  2015 Insightal Inc. ALL RIGHTS RESERVED</p>
+	</footer>
+
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+    <script src="vendor/angular/js/angular.js"></script>
+    <script src="vendor/angular/js/angular-cookies.js"></script>
+    <script src="vendor/angular/js/angular-animate.js"></script>
+    <script src="vendor/angular/js/angular-route-segment.min.js"></script>
+    <script src="vendor/angular/js/angular-route.js"></script>
+    
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="vendor/highcharts/js/highcharts.js"></script>
+    <script src="vendor/highcharts/js/highcharts-more.js"></script>
+    <script src="vendor/highcharts/js/no-data-to-display.js"></script>
+    <script src="vendor/jsPlumb/jsPlumb-2.0.7-min.js"></script>
+    
+    <!--script src="vendor/d3/js/d3.min.js"></script>
+    <script src="vendor/d3/js/nv.d3.min.js"></script>
+    <script src="vendor/d3/js/angular-nvd3.min.js"></script>
+    <script src="vendor/d3/js/angularjs-nvd3-directives.modified.js"></script-->
+    
+	<script src="vendor/angular-ui/js/angular-ui-router.modified.js"></script>
+    <script src="vendor/angular-ui/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="vendor/angular-ui/js/angular-ui-router-default.js"></script>
+    <script src="vendor/angular-other/ng-contextmenu.min.js"></script>
+    
+	<script src="vendor/clipboard/ZeroClipboard.js"></script>    
+	<script src="vendor/clipboard/ng-clip.min.js"></script>
+	
+	<script src="vendor/jsTree/jstree.min.js"></script>
+    
+    <!-- APPLICATION FILES -->
+    <!-- script src="js/routingConfig.js"></script-->
+    <script src="application/insightal.module.js"></script>
+    <script src="application/common/common.module.js"></script>
+    <script src="application/common/common.directives.js"></script>
+    <script src="application/common/common.services.js"></script>
+    <script src="application/common/common.controllers.js"></script>
+    <script src="application/dashboard/dashboard.module.js"></script>
+    <!--script src="application/dashboard/dashboard.directives.js"></script-->
+    <script src="application/dashboard/dashboard.services.js"></script>
+    <script src="application/dashboard/dashboard.controllers.js"></script>
+    <script src="application/charts/charts.module.js"></script>
+    <script src="application/charts/charts.directives.js"></script>
+    <script src="application/charts/charts.services.js"></script>
+    <script src="application/charts/charts.controllers.js"></script>
+    <script src="application/search/search.module.js"></script>
+    <!--script src="application/search/search.directives.js"></script-->
+    <script src="application/search/search.services.js"></script>
+    <script src="application/search/search.controllers.js"></script>
+    <script src="application/users/users.module.js"></script>
+    <script src="application/users/users.directives.js"></script>
+    <script src="application/users/users.services.js"></script>
+    <script src="application/users/users.controllers.js"></script>
+    <script src="application/workbench/workbench.module.js"></script>
+    <script src="application/workbench/workbench.directives.js"></script>
+    <script src="application/workbench/workbench.services.js"></script>
+    <script src="application/workbench/workbench.controllers.js"></script>
+    
+    <script src="inCharts/inCharts.module.js"></script>
+    <script src="inCharts/inCharts.directives.js"></script>
+    <script src="inCharts/inCharts.services.js"></script>
+    <script src="inCharts/inCharts.controllers.js"></script>
+    
+    <script src="inJsonTree/inJsonTree.module.js"></script>
+    <script src="inJsonTree/inJsonTree.directives.js"></script>
+    <script src="inJsonTree/inJsonTree.services.js"></script>
+    <script src="inJsonTree/inJsonTree.controllers.js"></script>
+    
+    <script src="jsPlumbAngular/jsPlumb.module.js"></script>
+    <script src="jsPlumbAngular/jsPlumb.directives.js"></script>
+    <script src="jsPlumbAngular/jsPlumb.services.js"></script>
+    <script src="jsPlumbAngular/jsPlumb.controllers.js"></script>
+
+</body>
+</html>

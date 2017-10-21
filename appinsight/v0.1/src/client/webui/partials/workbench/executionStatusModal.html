@@ -1,0 +1,17 @@
+<form name="folderCreateForm" novalidate class="form-horizontal" role="form">
+	<div class="modal-header">
+		<h4>
+			Workflow Instance Status
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div ng-if="modal.message.length > 0">{{modal.message}}</div>
+		<div ng-repeat="item in modal.resultStrings">
+			<pre>{{item}}</pre>
+		</div>
+	</div>
+	<div class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.cancel()" class="btn btn-primary pull-right">Done</button>
+	</div>
+</form>

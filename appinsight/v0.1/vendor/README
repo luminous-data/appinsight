@@ -1,0 +1,50 @@
+This directory is for software from other places.
+
+If you add anything, please update this file to say where it came from.
+
+
+
+bottle-*: http://bottlepy.org/
+
+kennethreitz-requests-*: https://github.com/kennethreitz/requests/tarball/master
+Paste-*: https://pypi.python.org/pypi/Paste
+(Paste provides multi-threading for servers using bottle.)
+
+pyelasticsearch-master: https://github.com/rhec/pyelasticsearch
+
+redis-*: http://redis.io/
+
+redis-py-master: https://github.com/andymccurdy/redis-py
+
+simplejson: https://pypi.python.org/pypi/simplejson/
+
+six-*: https://pypi.python.org/pypi/six/
+
+libaio1_0.3.109-4_amd64-ubuntu-14.04.deb: http://packages.ubuntu.com/trusty/amd64/libaio1/download/libaio1_0.3.109-4_amd64.deb
+
+kafka_2.11-0.9.0.0.tgz: https://www.apache.org/dyn/closer.cgi?path=/kafka/0.9.0.0/kafka_2.11-0.9.0.0.tgz
+
+kafka-python-0.9.zip: https://github.com/dpkp/kafka-python/tree/0.9 (select branch 0.9 from https://github.com/dpkp/kafka-python)
+
+mongodb-linux-x86_64-3.2.4.tgz: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.4.tgz
+
+pymongo-3.2.2.tgz: see pymongo-3.2.2.tgz-README.txt
+
+datastax-ddc-3.4.0-bin.tar.gz (Apache Cassandra): http://downloads.datastax.com/datastax-ddc/datastax-ddc-3.4.0-bin.tar.gz
+
+cassandra_driver-3.2.0a1.zip (Cassandra Python interface): click "download ZIP" at https://academy.datastax.com/downloads/download-drivers
+cassandra-driver-3.2.0a1.tgz: compiled version of cassandra_driver-3.2.0a1.zip -- see cassandra-driver-3.2.0a1-README.txt
+
+spark-1.5.1-bin-hadoop2.6-parts/* (Apache spark): http://spark.apache.org/downloads.html
+
+pywebhdfs-0.4.1.tar.gz (Python interface to hdfs): pywebhdfs-0.4.1.tar.gz
+
+commons-csv-1.4-bin.tar.gz (Apache commons): https://commons.apache.org/proper/commons-csv/download_csv.cgi
+
+spark-csv_2.11-1.4.0.jar (for use with Apache spark): https://spark-packages.org/package/databricks/spark-csv
+
+futures-3.0.5.tar.gz (used by cassandra-driver): https://pypi.python.org/pypi/futures/3.0.5
+
+spark-streaming-kafka-assembly_2.10-1.5.1.jar: https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka-assembly_2.10/1.5.1
+
+spark-cassandra-connector-java_2.10-1.5.0-RC1.jar: https://mvnrepository.com/artifact/com.datastax.spark/spark-cassandra-connector-java_2.10

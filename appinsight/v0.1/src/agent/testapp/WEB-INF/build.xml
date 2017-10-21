@@ -1,0 +1,33 @@
+<project name="InsightalTest" default="compile" basedir=".">
+	<description>
+	</description>
+	
+	<property name="servlet-api.jar" value="../../../lib/servlet-api.jar"/>
+	<property name="src" location="src/com/insightal/"/>
+	<property name="build" location="classes"/>
+	<property name="lib" location="lib"/>
+	
+	<path id="build.path">
+		<pathelement location="${servlet-api.jar}"/>
+		<pathelement location="${build}"/>
+		<fileset dir="lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	 </path>
+	
+	
+	
+	<target name="compile">
+		<javac 	srcdir="${src}" 
+				destdir="${build}"
+				debug="on"
+				debuglevel="lines,vars,source" 
+				classpathref="build.path"
+				includes="*"
+		/>
+	</target>
+
+</project>	
+	
+	
+	

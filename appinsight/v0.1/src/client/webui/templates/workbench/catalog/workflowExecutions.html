@@ -1,0 +1,66 @@
+<section class="col-lg-11 col-md-11 col-sm-9 col-xs-12">
+	<div>
+		<header>
+			<div class="dropdown pull-right">
+				<!--a ui-sref="user.workbench.catalog.workflowCreate">Add Workflow</a-->
+				<!--a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a-->
+				<!--ul class="dropdown-menu" role="menu">
+					<li><a ui-sref="user.workbench.catalog.workflow-create">Create Workflow</a></li>
+				</ul-->
+			</div>
+			<p>Workflow Instances</p>
+		</header>
+		
+		<h3 style="padding:0 20px;">{{wbExecutions.workflow.name}}</h3>
+		
+		<div class="users-table">
+			<table class="table">
+				<thead>
+					<tr>
+						<td>
+							<a href="" ng-click="wbExecutions.changeListOrder('instanceId')">
+								Instance ID
+								<span class="sortorder" ng-show="wbExecutions.list.orderKey === 'instanceId'" ng-class="{reverse:wbExecutions.list.orderReverse}"></span>
+							</a>
+						</td>
+						<td>
+							Params
+						</td>
+						<td>
+							State
+						</td>
+						<td>
+							Actions
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-if="wbExecutions.list.items.length == 0">
+						<td colspan="4" style="text-align:center; font-style:italic;">No workflow instances</td>
+					</tr>
+					<tr ng-if="wbExecutions.list.items.length > 0"
+						ng-repeat="item in wbExecutions.list.items | orderBy:wbExecutions.list.orderKey:wbExecutions.list.orderReverse | startFrom:(wbExecutions.list.currentPage-1)*wbExecutions.list.numPerPage | limitTo:wbExecutions.list.numPerPage">
+						<td>{{item.instanceId}}</td>
+						<td>
+							<div ng-repeat="stepParams in item.params">
+								<div><b>Step {{$index + 1}}</b></div>
+								<div ng-repeat="(key, value) in stepParams">{{key}} = {{value}}</div>
+							</div>
+						</td>
+						<td>{{item.state}}</td>
+						<td>
+							<button ng-click="wbExecutions.showStatus(item.instanceId)" type="button" class="btn btn-default btn-xs">Show Status</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- end of table -->
+		
+		<!-- pagination -->
+		<nav id="pagination-block">
+			<pagination ng-model="wbExecutions.list.currentPage" num-pages="wbExecutions.list.numPages" items-per-page="wbExecutions.list.numPerPage"
+				total-items="wbExecutions.list.numResults" rotate="false" boundary-links="true"></pagination>
+		</nav>
+		<!-- end of pagination -->
+	</div>
+</section>

@@ -1,0 +1,20 @@
+<div class="widget panel-container" ng-style="config.panelStyle">
+	<div class="panel panel-default">
+		<div class="panel-heading" title="{{config.description}}">
+			{{config.name}}
+			<ng-include src="'widgets/partials/widgetMenu.html'"></ng-include>
+		</div>
+		<div class="panel-body">
+			<nvd3-pie-chart
+		    	data="formattedData"
+		    	noData="No Data"
+		    	version="{{config.transientCfg.version}}"
+		        id="{{config.type}}-{{config.guid}}"
+		        x="config.specific.x(config.guid)"
+	            y="config.specific.y(config.guid)"
+		        showLabels="true">
+	        	<svg></svg>
+		    </nvd3-pie-chart>
+		</div>
+	</div>
+</div>

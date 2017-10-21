@@ -1,0 +1,22 @@
+<web-app>
+
+	<servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>com.insightal.TestServlet</servlet-class>
+		<init-param>
+			<param-name>logServer</param-name> 
+			<param-value>192.168.2.31:9501/</param-value> 
+		</init-param>
+		<init-param>
+			<param-name>collectionId</param-name> 
+			<param-value>8961ff9f-452e-4511-a022-c15878321499</param-value> 
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+
+</web-app>

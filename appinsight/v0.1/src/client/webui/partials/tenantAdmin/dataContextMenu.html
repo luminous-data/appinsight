@@ -1,0 +1,9 @@
+<ul class="vakata-context jstree-contextmenu jstree-default-contextmenu" style="display:block;">
+	<li ng-repeat="actionItem in data.nodeActionsMenu[item.level]" class="">
+		<a ng-click="actionItem.action(item)" rel="{{$index}}" href="">
+			<i></i>
+			<span class="vakata-contextmenu-sep">&nbsp;</span>
+			{{actionItem.label}}
+		</a>
+	</li>
+</ul>

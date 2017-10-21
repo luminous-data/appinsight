@@ -1,0 +1,57 @@
+<div class="modal-header">
+	<h4>
+		Edit Metric
+		<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+	</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form">
+		<div ng-repeat-start="metric in modal.options.metric" class="form-group">
+			<h4 class="col-sm-3 text-right" style="margin:0;">Metric {{$index+1}}</h4>
+			<div class="col-sm-9 text-right">
+				<button ng-click="modal.removeMetric($index)" class="btn btn-danger btn-xs">Remove Metric</button>
+			</div>
+			
+			<label for="metric-name" class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-9">
+				<input id="metric-name" ng-model="metric.name" type="text" class="form-control input-sm" />
+			</div>
+			
+			<label for="application" class="col-sm-3 control-label">Application</label>
+			<div class="col-sm-9">
+				<select id="application" ng-model="metric.application" ng-options="item[0] as item[1] for item in modal.applicationList" class="form-control input-sm"></select>
+			</div>
+		
+			<label for="collection" class="col-sm-3 control-label">Collection</label>
+			<div class="col-sm-9">
+				<select id="collection" ng-model="metric.collection" ng-options="key as value.name for (key,value) in modal.applicationFields[ metric.application ].collections" class="form-control input-sm"></select>
+			</div>
+		
+			<label for="document" class="col-sm-3 control-label">Document</label>
+			<div class="col-sm-9">
+				<select id="document" ng-model="metric.document" ng-options="key as key for (key,value) in modal.applicationFields[ metric.application ].collections[ metric.collection ].documents" class="form-control input-sm"></select>
+			</div>
+		
+			<label for="field" class="col-sm-3 control-label">Field</label>
+			<div class="col-sm-9">
+				<select id="field" ng-model="metric.field" ng-options="key as key for (key,value) in modal.applicationFields[ metric.application ].collections[ metric.collection ].documents[ metric.document ].fields" class="form-control input-sm"></select>
+			</div>
+		
+			<label for="attribute" class="col-sm-3 control-label">Attribute</label>
+			<div class="col-sm-9">
+				<select id="attribute" ng-model="metric.attribute" ng-options="attribute for attribute in modal.applicationFields[ metric.application ].collections[ metric.collection ].documents[ metric.document ].fields[ metric.field ].attributes" class="form-control input-sm"></select>
+			</div>
+			
+			<label for="attribute" class="col-sm-3 control-label">Search Term</label>
+			<div class="col-sm-9">
+				<input id="searchTerm" ng-model="metric.searchTerm" type="text" class="form-control input-sm" />
+			</div>
+		</div>
+		<hr ng-repeat-end/>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="modal.addMetric()" class="btn btn-success btn-sm pull-left">Add Metric</button>
+	<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	<button ng-click="modal.save()" class="btn btn-primary">Set</button>
+</div>

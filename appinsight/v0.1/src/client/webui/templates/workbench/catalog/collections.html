@@ -1,0 +1,59 @@
+<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+	<header>
+		<p>Data Tree</p>
+	</header>
+	<div style="overflow:auto;">
+		<js-tree tree-data="scope" tree-model="wbCollections.treeGetNodeChildren" 
+			tree-nodes-to-load="wbCollections.treeNodesToLoad"
+			tree-nodes-to-open="wbCollections.treeNodesToOpen"
+			tree-events="loaded:wbCollections.treeRootLoaded;open_node:wbCollections.treeOpenNodeCB;activate_node:wbCollections.treeActivateNodeCB" ></js-tree>
+	</div>
+</div>
+
+<section class="col-lg-9 col-lg-offset-0 col-md-9 col-md-offset-0 col-sm-12 col-sm-offset-3 col-xs-12 col-xs-offset-0">
+	<div>
+		<header>
+			<!--div class="dropdown pull-right">
+				<a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="" ng-click="wbCollections.openDatasetWizard()">Create Collection</a></li>
+				</ul>
+			</div-->
+			<p>Collections</p>
+		</header>
+		
+		<div class="users-table">
+			<table class="table">
+				<thead ng-if="wbCollections.collectionsFiltered.length > 0">
+					<tr>
+						<th>Collection Name</th>
+						<!--td>Actions</td-->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-if="wbCollections.collectionsFiltered.length == 0">
+						<td ng-if="!wbCollections.collectionsRetrieved"><i>Open an application in the Data Tree to display collections it contains.</i></td>
+						<td ng-if=" wbCollections.collectionsRetrieved"><i>No collections</i></td>
+						<!--td>
+							<a href="">View</a>
+						</td-->
+					</tr>
+					<tr ng-if="wbCollections.collectionsFiltered.length > 0"
+						ng-repeat="item in wbCollections.collectionsFiltered">
+						<td>{{item.text}}</td>
+						<!--td>
+							<a href="">View</a>
+						</td-->
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- end of table -->
+		
+		<!-- pagination -->
+		<!--nav id="pagination-block">
+			<pagination ng-model="users.userList.currentPage" num-pages="users.userList.numPages" items-per-page="users.userList.numPerPage"
+				total-items="users.userList.numResults" rotate="false" boundary-links="true"></pagination>
+		</nav-->
+		<!-- end of pagination -->
+	</div>
+</section>

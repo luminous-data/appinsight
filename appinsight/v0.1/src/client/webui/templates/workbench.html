@@ -1,0 +1,30 @@
+<!-- abstract state user.workbench -->
+<nav class="ng-cloak navbar navbar-alt" style="margin-top:-21px;">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs2">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" style="visibility:hidden;">Insightal</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs2">
+			<ul class="nav navbar-nav">
+				<li access-level="nav.accessLevels.nonAdmin" user-id="{{nav.user.userId}}" ui-sref-active="active">
+					<a ui-sref="user.workbench.catalog">Data Catalog</a>
+				</li>
+				<li access-level="nav.accessLevels.nonAdmin" user-id="{{nav.user.userId}}" ui-sref-active="active">
+					<a ui-sref="user.workbench.visuals">Visuals</a>
+				</li>
+				<li access-level="nav.accessLevels.nonAdmin" user-id="{{nav.user.userId}}" ui-sref-active="active">
+					<a ui-sref="user.workbench.system">System</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!-- user.workbench child state contents -->
+<ui-view class="ng-scope"></ui-view>

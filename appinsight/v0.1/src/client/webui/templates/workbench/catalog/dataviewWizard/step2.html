@@ -1,0 +1,66 @@
+<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Create Dataview (create dataset from existing datasets)</h3>
+		</div>
+		<div class="panel-body">
+			<h4>STEP 2: Choose Source Dataset(s)</h4>
+			<div class="insightal-table">
+				<table class="table">
+					<thead>
+						<tr>
+							<td>Selected</td>
+							<td>Name</td>
+							<td>User</td>
+							<td>Last Updated</td>
+							<td>Files</td>
+							<td>Columns</td>
+							<td>Actions</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in wizard.exampleDatasets">
+							<td>
+								<div class="checkbox">
+									<label>
+										<input name="show-{{$index}}" ng-checked="col.show" ng-click="col.show = !col.show" type="checkbox">
+									</label>
+								</div>
+							</td>
+							<td>{{item.name}}</td>
+							<td>{{item.user}}</td>
+							<td>{{wizard.formatDate(item.lastUpdated)}}</td>
+							<td><span ng-repeat="file in item.files">{{file}}, </span></td>
+							<td><span ng-repeat="column in item.columns">{{column.name}}, </span></td>
+							<td>
+								<a href="" ng-click="wizard.viewDataset()">Preview Data</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!-- end of table -->
+			<h4 ng-if="wizard.datasetDisplayData.length > 0">Data Preview</h4>
+			<div ng-if="wizard.datasetDisplayData.length > 0" class="insightal-table" style="border-top-width:0;">
+				<table class="table">
+					<tbody>
+						<tr ng-repeat="row in wizard.datasetDisplayData">
+							<td ng-repeat="item in row track by $index">{{item}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!-- end of table -->
+		</div>
+		<div class="panel-footer">
+			<button ui-sref="user.workbench.catalog.dataviewCreate.step1" class="btn btn-primary">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				Step 1
+			</button>
+			<button ng-click="wizard.goToStep(3, 'user.workbench.catalog.dataviewCreate.step3')" class="btn btn-primary pull-right">
+				Step 3
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			</button>
+			<button ui-sref="user.workbench.catalog.datasets" class="btn btn-default pull-right" style="margin-right:10px;">Cancel</button>
+			<div style="clear:both; height:1px; width:100%;"></div>
+		</div>
+	</div>
+</div>

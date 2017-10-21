@@ -1,0 +1,111 @@
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+	<ul class="nav nav-pills nav-stacked nav-truncate">
+		<li ng-class="{ active: $state.includes('admin.tenantadmin.users')  }">
+			<a ui-sref="admin.tenantadmin.users">Users</a>
+		</li>
+		<li ng-class="{ active: $state.includes('admin.tenantadmin.data') }">
+			<a ui-sref="admin.tenantadmin.data">Data</a>
+		</li>
+	</ul>
+	<div style="overflow:auto;">
+		<js-tree tree-data="scope" tree-model="data.treeGetNodeChildren" tree-plugins="contextmenu"
+			tree-contextmenu="data.treeContextMenu" tree-nodes-to-load="data.treeNodesToLoad" tree-nodes-to-open="data.treeNodesToOpen"
+			tree-events="loaded:data.treeRootLoaded;open_node:data.treeOpenNodeCB;activate_node:data.treeActivateNodeCB" ></js-tree>
+	</div>
+</div>
+
+<section class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+	<div>
+	
+		<header>
+			<!--div class="dropdown pull-right">
+				<a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="" ng-click="">...</a></li>
+				</ul>
+			</div-->
+			<a ng-if="data.selectedNode.level < 3" href="" ng-click="data[ 'create' + data.selectedLevelName ]( data.selectedNode )">Create {{data.selectedLevelName}}</a>
+			<p>Data List</p>
+		</header>
+		
+		<div>
+			<ol class="breadcrumb" style="margin:2px 0 0;">
+				<li ng-repeat="node in data.selectedNodeAncestors">
+					<a href="" ng-click="data.navigateToNode(node.id)">{{node.text}}</a>
+				</li>
+				<!--li class="active">Subdirectory 1</li-->
+			</ol>
+		</div>
+		
+		<h4 style="color:#7d7d7d; margin:20px 0 0 25px;">{{data.selectedLevelName}}{{(data.selectedLevelName.length>0)?"s in ":""}}{{data.selectedParentName}}</h4>		
+		<div id="tenantadmin-data-table" class="users-table" style="margin-top:10px;">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th ng-if="data.selectedNode.level >= 0 && data.selectedNode.level <= 3">ID</th>
+						<th ng-if="data.selectedNode.level >= 0 && data.selectedNode.level <= 2">Plugins</th>
+						<th ng-if="data.selectedNode.level == 4">Field Type</th>
+						<th ng-if="data.selectedNode.level == 4">Facets</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in data.selectedNodeItems"
+						ng-dblclick="data.nodeDblClick(item)"
+						context-menu="partials/tenantAdmin/dataContextMenu.html" context-event="contextmenu" ng-model="item"
+						style="cursor:pointer;">
+						<td>
+							{{item.text}}
+							 <span ng-if="item.level==4 && !item.source.sensorName" class="label label-default">doc</span>
+							 <span ng-if="item.level==4 &&  item.source.sensorName" class="label label-default">sensor</span>
+						</td>
+						<td ng-if="data.selectedNode.level >= 0 && data.selectedNode.level <= 2">
+							{{item.id}}
+						</td>
+						<td ng-if="data.selectedNode.level == 3">
+							{{(item.source.sensorName)? item.id : "---"}}
+						</td>
+						<td ng-if="data.selectedNode.level >= 0 && data.selectedNode.level <= 2">
+							<div ng-if="data.selectedNodePlugins[item.id].length == 0"><i>none</i></div>
+							<ul ng-if="data.selectedNodePlugins[item.id].length > 0" class="list-group">
+								<li ng-repeat="plugin in data.selectedNodePlugins[item.id]" class="list-group-item">
+									<a href="" ng-click="data.openDeletePluginModal(plugin)" class="pull-right">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</a>
+									{{plugin.name}}
+								</li>
+							</ul>
+						</td>
+						<td ng-if="data.selectedNode.level == 4">
+							{{item.fieldData.type}}
+						</td>
+						<td ng-if="data.selectedNode.level == 4">
+							<div ng-if="data.selectedNodeFacets[item.id].length == 0"><i>none</i></div>
+							<ul ng-if="data.selectedNodeFacets[item.id].length > 0" class="list-group">
+								<li ng-repeat="facet in data.selectedNodeFacets[item.id]" class="list-group-item">
+									<a href="" ng-click="data.deleteFacet(facet)" class="pull-right">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</a>
+									{{facet.display_label}}
+								</li>
+							</ul>
+						</td>
+						<td>
+							<a ng-repeat="actionItem in data.nodeActionsMenu[data.selectedNode.level+1]"
+								href="" ng-click="actionItem.action(item)">{{actionItem.label}}</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- end of table -->
+		
+		<!-- pagination -->
+		<!--nav id="pagination-block">
+			<pagination ng-model="users.userList.currentPage" num-pages="users.userList.numPages" items-per-page="users.userList.numPerPage"
+				total-items="users.userList.numResults" rotate="false" boundary-links="true"></pagination>
+		</nav-->
+		<!-- end of pagination -->
+	
+	</div>
+</section>

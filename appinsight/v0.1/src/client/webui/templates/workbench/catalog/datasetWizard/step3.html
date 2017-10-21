@@ -1,0 +1,59 @@
+<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Create Dataset</h3>
+		</div>
+		<div class="panel-body">
+			<h4>STEP 3: Parse File Data</h4>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="fileType" class="col-lg-4 col-lg-offset-1 col-md-5 col-sm-4 col-xs-12 control-label">File Type</label>
+					<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+						<select id="fileType" name="fileType" ng-model="wizard.dataset.file.type" ng-class="{'form-control-invalid':!wizard.isValid('fileType')}" class="form-control" required
+								ng-options="option.value as option.label for option in wizard.options.fileType"></select>
+					</div>
+				</div>
+				<div class="form-group" ng-if="wizard.dataset.file.type=='csv'">
+					<label for="rowDelimiter" class="col-lg-4 col-lg-offset-1 col-md-5 col-sm-4 col-xs-12 control-label">Row Delimiter</label>
+					<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+						<select id="rowDelimiter" name="rowDelimiter" ng-model="wizard.dataset.file.rowDelimiter" ng-class="{'form-control-invalid':!wizard.isValid('rowDelimiter')}" class="form-control" required
+								ng-options="option.value as option.label for option in wizard.options.rowDelimiter"></select>
+					</div>
+				</div>
+				<div class="form-group" ng-if="wizard.dataset.file.type=='csv'">
+					<label for="columnDelimiter" class="col-lg-4 col-lg-offset-1 col-md-5 col-sm-4 col-xs-12 control-label">Column Delimiter</label>
+					<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+						<select id="columnDelimiter" name="columnDelimiter" ng-model="wizard.dataset.file.columnDelimiter" ng-class="{'form-control-invalid':!wizard.isValid('columnDelimiter')}" class="form-control" required
+								ng-options="option.value as option.label for option in wizard.options.columnDelimiter"></select>
+					</div>
+				</div>
+				<div class="form-group" ng-if="wizard.dataset.file.type=='csv'">
+					<label for="escapeCharacter" class="col-lg-4 col-lg-offset-1 col-md-5 col-sm-4 col-xs-12 control-label">Escape Character</label>
+					<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+						<select id="escapeCharacter" name="escapeCharacter" ng-model="wizard.dataset.file.escapeCharacter" ng-class="{'form-control-invalid':!wizard.isValid('escapeCharacter')}" class="form-control" required
+								ng-options="option.value as option.label for option in wizard.options.escapeCharacter"></select>
+					</div>
+				</div>
+				<div class="form-group" ng-if="wizard.dataset.file.type=='csv'">
+					<label for="quoteCharacter" class="col-lg-4 col-lg-offset-1 col-md-5 col-sm-4 col-xs-12 control-label">Quote Character</label>
+					<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+						<select id="quoteCharacter" name="quoteCharacter" ng-model="wizard.dataset.file.quoteCharacter" ng-class="{'form-control-invalid':!wizard.isValid('quoteCharacter')}" class="form-control" required
+								ng-options="option.value as option.label for option in wizard.options.quoteCharacter"></select>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="panel-footer">
+			<button ui-sref="user.workbench.catalog.datasetCreate.step2" class="btn btn-primary">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				Step 2
+			</button>
+			<button ng-click="wizard.goToStep(4, 'user.workbench.catalog.datasetCreate.step4')" class="btn btn-primary pull-right">
+				Step 4
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			</button>
+			<button ui-sref="user.workbench.catalog.datasets" class="btn btn-default pull-right" style="margin-right:10px;">Cancel</button>
+			<div style="clear:both; height:1px; width:100%;"></div>
+		</div>
+	</div>
+</div>

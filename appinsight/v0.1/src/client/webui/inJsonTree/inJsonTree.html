@@ -1,0 +1,13 @@
+<ul class="in-jsontree-container-ul">
+	<in-json-tree-node ng-repeat="field in modelRoot track by field.guid" node-model="field" parent-type="modelRoot.type" options="options"></in-json-tree-node>
+	<div>
+		<li role="treeitem" id="rootAddBtn" aria-selected="false" aria-level="1" aria-labelledby="rootAddBtn_anchor" aria-expanded="false" aria-busy="false" class="in-jsontree-node in-jsontree-loading in-jsontree-last-plus">
+			<i ng-if="!isTreeReady" class="in-jsontree-icon in-jsontree-ocl" style="margin-left:-5px;"></i>
+			<div ng-if="isTreeReady" id="rootAddBtn_anchor" class="in-jsontree-anchor" style="height:22px; line-height:20px; margin-left:-1px;" href="" tabindex="-1">
+				<button ng-click="addField()" type="button" class="btn btn-default btn-xs">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+			</div>
+		</li>
+	</div>
+</ul>

@@ -1,0 +1,60 @@
+<section class="col-lg-11 col-md-11 col-sm-9 col-xs-12">
+	<div>
+		<header>
+			<div class="dropdown pull-right">
+				<a ui-sref="user.workbench.catalog.workflowCreate">Add Workflow</a>
+				<!--a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a-->
+				<!--ul class="dropdown-menu" role="menu">
+					<li><a ui-sref="user.workbench.catalog.workflow-create">Create Workflow</a></li>
+				</ul-->
+			</div>
+			<p>Workflows</p>
+		</header>
+		
+		<div class="users-table">
+			<table class="table">
+				<thead>
+					<tr>
+						<td>
+							<a href="" ng-click="wbWorkflows.changeListOrder('name')">
+								Name
+								<span class="sortorder" ng-show="wbWorkflows.list.orderKey === 'name'" ng-class="{reverse:wbWorkflows.list.orderReverse}"></span>
+							</a>
+						</td>
+						<td>
+							<a href="" ng-click="wbWorkflows.changeListOrder('stepCount')">
+								Steps
+								<span class="sortorder" ng-show="wbWorkflows.list.orderKey === 'stepCount'" ng-class="{reverse:wbWorkflows.list.orderReverse}"></span>
+							</a>
+						</td>
+						<td>
+							Actions
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-if="wbWorkflows.list.items.length == 0">
+						<td colspan="3" style="text-align:center; font-style:italic;">No workflows</td>
+					</tr>
+					<tr ng-if="wbWorkflows.list.items.length > 0"
+						ng-repeat="item in wbWorkflows.list.items | orderBy:wbWorkflows.list.orderKey:wbWorkflows.list.orderReverse | startFrom:(wbWorkflows.list.currentPage-1)*wbWorkflows.list.numPerPage | limitTo:wbWorkflows.list.numPerPage">
+						<td>{{item.name}}</td>
+						<td>{{item.stepCount}}</td>
+						<td>
+							<button ng-click="wbWorkflows.showWorkflowDef(item.guid)" type="button" class="btn btn-default btn-xs">Show Definition</button>
+							<a ui-sref="user.workbench.catalog.workflowExecutions({ guid:item.guid })" class="btn btn-default btn-xs" style="padding-right:5px; color:#333;">See Instances</a>
+							<button ng-click="wbWorkflows.showExecuteModal(item.guid)" type="button" class="btn btn-default btn-xs">Execute</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- end of table -->
+		
+		<!-- pagination -->
+		<nav id="pagination-block">
+			<pagination ng-model="wbWorkflows.list.currentPage" num-pages="wbWorkflows.list.numPages" items-per-page="wbWorkflows.list.numPerPage"
+				total-items="wbWorkflows.list.numResults" rotate="false" boundary-links="true" max-size="10"></pagination>
+		</nav>
+		<!-- end of pagination -->
+	</div>
+</section>

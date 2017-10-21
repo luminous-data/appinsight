@@ -1,0 +1,20 @@
+<form name="folderCreateForm" novalidate class="form-horizontal" role="form">
+	<div class="modal-header">
+		<h4>
+			{{modal.workflow.name}} Definition
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<pre>{{modal.workflowString}}</pre>
+		<!--div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Folder Name</label>
+			<div class="col-sm-9">
+				<input id="name" name="name" ng-model="modal.newDir.name" ng-class="{'form-control-invalid':!modal.isValid('name')}" type="text" class="form-control" required />
+			</div>
+		</div-->
+	</div>
+	<div class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.cancel()" class="btn btn-primary pull-right">Done</button>
+	</div>
+</form>

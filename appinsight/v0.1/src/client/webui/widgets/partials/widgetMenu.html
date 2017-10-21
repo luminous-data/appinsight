@@ -1,0 +1,13 @@
+<div class="dropdown pull-right" title="">
+	<button id="dropdown-{{config.guid}}" type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+		Chart
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-{{config.guid}}">
+		<li role="presentation"><a ng-click="editWidget()" role="menuitem" tabindex="-1">Configure Chart</a></li>
+		<li role="presentation"><a ng-click="editMetric()" role="menuitem" tabindex="-1">Configure Data</a></li>
+		<li role="presentation"><a ng-click="move(-1)" role="menuitem" tabindex="-1">Move Left</a></li>
+		<li role="presentation"><a ng-click="move(1)" role="menuitem" tabindex="-1">Move Right</a></li>
+		<li role="presentation"><a ng-click="removeWidget()" role="menuitem" tabindex="-1">Remove</a></li>
+	</ul>
+</div>

@@ -1,0 +1,257 @@
+<section class="col-lg-11 col-md-11 col-sm-9 col-xs-12">
+	<div>
+		<header>
+			<p>Create Workflow</p>
+		</header>
+		
+		<div>
+			<div class="panel panel-default" style="margin-top:15px;">
+				<div class="panel-body">
+					<div class="form-group">
+						<label for="workflowName">Name</label>
+						<input ng-model="workflow.name" id="workflowName" type="text" class="form-control" placeholder="Workflow Name"/>
+					</div>
+					<!--div class="form-group">
+						<label for="workflowDescription">Description</label>
+						<textarea ng-model="workflow.description" id="workflowDescription" class="form-control" rows="3" placeholder="Workflow Description"></textarea>
+					</div-->
+				</div>
+			</div>
+			<button ng-click="workflow.addStep()" type="button" class="btn btn-success">Add Workflow Step</button>
+			<div ng-repeat="step in workflow.steps" class="panel panel-default" style="margin-top:15px;">
+				<div class="panel-heading">
+					<button ng-click="workflow.removeStep(step.guid)" type="button" class="btn btn-xs btn-default pull-right">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+					<h3 class="panel-title" ng-click="isStepCollapsed = !isStepCollapsed" style="cursor:pointer;">
+						<span>{{step.name}}</span>
+						<span class="glyphicon" ng-class="{'glyphicon-chevron-up':!isStepCollapsed, 'glyphicon-chevron-down':isStepCollapsed}" aria-hidden="true"></span>
+					</h3>
+				</div>
+				<div collapse="isStepCollapsed" class="panel-body">
+					<div class="form-group">
+						<label for="stepType-{{$index}}">Step Type</label>
+						<select ng-model="step.type" ng-options="type.value as type.label for type in workflow.stepTypes" ng-change="workflow.onStepTypeChange(step.guid)" id="stepType-{{$index}}" class="form-control"></select>
+					</div>
+					<hr class="panel-separator"/>
+					<div class="form-group">
+						<label for="stepName-{{$index}}">Step Name</label>
+						<input ng-model="step.name" id="stepName-{{$index}}" type="text" class="form-control" placeholder="Step Name"/>
+					</div>
+					<hr class="panel-separator"/>
+					
+					<!-- FILESYSTEM type -->
+					<div ng-if="step.type == 'filesystem'" ng-controller="WorkflowStepTypeFileCtrl as fileStep" ng-init="fileStep.stepGuid = step.guid">
+						<div class="form-group">
+							<label for="fileStep-{{$index}}-action">Action</label>
+							<select ng-model="fileStep.fileActionType" ng-options="actionType.value as actionType.label for actionType in fileStep.actionTypes" id="fileStep-{{$index}}-action" class="form-control"></select>
+						</div>
+						<hr class="panel-separator"/>
+						<div ng-if="fileStep.fileActionType.length > 0" class="form-group">
+							<label for="fileStep-{{$index}}-path">
+								<span ng-if="fileStep.fileActionType == 'copyFile'">Source: </span>
+								Containing Folder 
+								<span style="font-weight:normal;">(use the file browser below to select the parent folder)</span>
+							</label>
+							<input ng-model="fileStep.selectedParentDisplayPath" id="fileStep-{{$index}}-path" type="text" class="form-control" placeholder="Parent Folder Name" disabled="disabled"/>
+						</div>
+						<div ng-if="fileStep.fileActionType.length > 0" class="file-browser">
+							<div class="file-browser-heading" ng-click="isFileBrowserCollapsed1 = !isFileBrowserCollapsed1" style="cursor:pointer;">
+								File Browser
+								<span class="glyphicon" ng-class="{'glyphicon-chevron-up':!isFileBrowserCollapsed1, 'glyphicon-chevron-down':isFileBrowserCollapsed1}" aria-hidden="true"></span>
+							</div>
+							<div class="file-browser-body" collapse="isFileBrowserCollapsed1">
+								<!-- in jsTree: disable multiple nodes selection -->
+								<js-tree tree-core="{multiple:false}" 
+									tree-data="scope"
+									tree-model="fileStep.treeGetNodeChildren"
+									tree-nodes-to-load="fileStep.treeNodesToLoad"
+									tree-nodes-to-open="fileStep.treeNodesToOpen"
+									tree-events="loaded:fileStep.treeRootLoaded;select_node:fileStep.treeSelectNodeCB;">
+								</js-tree>
+							</div>
+						</div>
+						<hr class="panel-separator"/>
+						<div ng-if="fileStep.fileActionType == 'copyFile' || fileStep.fileActionType == 'deleteFile'" class="form-group">
+							<label for="fileStep-{{$index}}-fileName"><span ng-if="fileStep.fileActionType == 'copyFile'">Source: </span>File Name</label>
+							<input ng-model="fileStep.nodeName" id="fileStep-{{$index}}-fileName" type="text" class="form-control" placeholder="File Name"/>
+						</div>
+						<div ng-if="fileStep.fileActionType == 'createFolder' || fileStep.fileActionType == 'deleteFolder'" class="form-group">
+							<label for="fileStep-{{$index}}-dirName">Folder Name</label>
+							<input ng-model="fileStep.nodeName" id="fileStep-{{$index}}-dirName" type="text" class="form-control" placeholder="Folder Name"/>
+						</div>
+						<hr ng-if="fileStep.fileActionType == 'copyFile'" class="panel-separator"/>
+						<div ng-if="fileStep.fileActionType == 'copyFile'" class="form-group">
+							<label for="fileStep-{{$index}}-path2">Destination: Containing Folder <span style="font-weight:normal;">(use the file browser below to select the parent folder)</span></label>
+							<input ng-model="fileStep.selectedParentDisplayPath2" id="fileStep-{{$index}}-path2" type="text" class="form-control" placeholder="Parent Folder Name" disabled="disabled"/>
+						</div>
+						<div ng-if="fileStep.fileActionType == 'copyFile'" class="file-browser">
+							<div class="file-browser-heading" ng-click="isFileBrowserCollapsed2 = !isFileBrowserCollapsed2" style="cursor:pointer;">
+								File Browser
+								<span class="glyphicon" ng-class="{'glyphicon-chevron-up':!isFileBrowserCollapsed2, 'glyphicon-chevron-down':isFileBrowserCollapsed2}" aria-hidden="true"></span>
+							</div>
+							<div class="file-browser-body" collapse="isFileBrowserCollapsed2">
+								<!-- in jsTree: disable multiple nodes selection -->
+								<js-tree tree-core="{multiple:false}" 
+									tree-data="scope"
+									tree-model="fileStep.treeGetNodeChildren"
+									tree-nodes-to-load="fileStep.treeNodesToLoad"
+									tree-nodes-to-open="fileStep.treeNodesToOpen2"
+									tree-events="loaded:fileStep.treeRootLoaded2;select_node:fileStep.treeSelectNodeCB2;">
+								</js-tree>
+							</div>
+						</div>
+						<hr ng-if="fileStep.fileActionType == 'copyFile'" class="panel-separator"/>
+						<div ng-if="fileStep.fileActionType == 'copyFile'" class="form-group">
+							<label for="fileStep-{{$index}}-fileName2">Destination: File Name</label>
+							<input ng-model="fileStep.nodeName2" id="fileStep-{{$index}}-fileName2" type="text" class="form-control" placeholder="File Name"/>
+						</div>
+					</div>
+					<!-- end FILESYSTEM type -->
+					
+					<!-- SCRIPT type -->
+					<div ng-if="step.type == 'script'" ng-controller="WorkflowStepTypeScriptCtrl as scriptStep" ng-init="scriptStep.stepGuid = step.guid">
+						<div class="form-group">
+							<label for="scriptStep-{{$index}}-type">Script Type</label>
+							<select ng-model="scriptStep.scriptType" ng-options="type.value as type.label for type in scriptStep.scriptTypes" id="scriptStep-{{$index}}-type" class="form-control"></select>
+						</div>
+						<hr class="panel-separator"/>
+						<!--div class="form-group">
+							<label for="scriptStep-{{$index}}-input">Input for the Script <span style="font-weight:normal;">(select output of another step or choose a file in the file browser)</span></label>
+							<input ng-model="scriptStep.inputDisplayPath" id="scriptStep-{{$index}}-input" type="text" class="form-control" placeholder="Input File or Input Step" disabled="disabled"/>
+						</div>
+						<div class="form-group">
+							<label for="scriptStep-{{$index}}-sourceStep" style="font-weight:normal;">Either Select Input From Another Step</label>
+							<div ng-if="scriptStep.inputSteps.length == 0"><i>No steps available.</i></div>
+							<select ng-if="scriptStep.inputSteps.length > 0" ng-model="scriptStep.selectedInputStep" ng-options="step.guid as step.name for step in scriptStep.inputSteps"
+									id="scriptStep-{{$index}}-sourceStep" class="form-control"></select>
+						</div>
+						<div class="form-group">
+							<label for="scriptStep-{{$index}}-sourceFile" style="font-weight:normal;">Or Choose Input File in the Browser Below</label>
+							<div style="max-height:600px; max-width:100%; overflow:auto; margin-bottom:15px; border:1px solid #ddd;">
+								comment: in jsTree: disable multiple nodes selection
+								<js-tree tree-core="{multiple:false}" 
+									tree-data="scope"
+									tree-model="scriptStep.treeGetNodeChildren"
+									tree-nodes-to-load="scriptStep.treeNodesToLoad"
+									tree-nodes-to-open="scriptStep.treeNodesToOpen"
+									tree-events="loaded:scriptStep.treeRootLoaded;select_node:scriptStep.treeSelectNodeCB;">
+								</js-tree>
+							</div>
+						</div-->
+						<div class="form-group">
+							<label for="script-{{$index}}">Selected Script</label>
+							<input ng-model="scriptStep.scriptDisplayPath" id="script-{{$index}}" type="text" class="form-control" placeholder="Select a Script Below" disabled="disabled"/>
+						</div>
+						<div  class="file-browser">
+							<div class="file-browser-heading" ng-click="isFileBrowserCollapsed = !isFileBrowserCollapsed" style="cursor:pointer;">
+								File Browser
+								<span class="glyphicon" ng-class="{'glyphicon-chevron-up':!isFileBrowserCollapsed, 'glyphicon-chevron-down':isFileBrowserCollapsed}" aria-hidden="true"></span>
+							</div>
+							<div class="file-browser-body" collapse="isFileBrowserCollapsed">
+								<!-- in jsTree: disable multiple nodes selection -->
+								<js-tree tree-core="{multiple:false}" 
+									tree-data="scope"
+									tree-model="scriptStep.treeGetNodeChildren"
+									tree-nodes-to-load="scriptStep.treeNodesToLoad"
+									tree-nodes-to-open="scriptStep.treeNodesToOpen2"
+									tree-events="loaded:scriptStep.treeRootLoaded2;select_node:scriptStep.treeSelectNodeCB2;">
+								</js-tree>
+							</div>
+						</div>
+						<!--div class="form-group">
+							<label for="scriptOutput-{{$index}}">Script Output Folder <span style="font-weight:normal;">(you can create folders with mouse right-click)</span></label>
+							<input ng-model="scriptStep.outputDisplayPath" id="scriptOutput-{{$index}}" type="text" class="form-control" placeholder="Select a Folder Below" disabled="disabled"/>
+						</div>
+						<div style="max-height:600px; max-width:100%; overflow:auto; margin-bottom:15px; border:1px solid #ddd;">
+							comment: in jsTree: disable multiple nodes selection
+							<js-tree tree-core="{multiple:false}" 
+								tree-data="scope"
+								tree-model="scriptStep.treeGetNodeChildren"
+								tree-nodes-to-load="scriptStep.treeNodesToLoad"
+								tree-nodes-to-open="scriptStep.treeNodesToOpen3"
+								tree-events="loaded:scriptStep.treeRootLoaded3;select_node:scriptStep.treeSelectNodeCB3;"
+								tree-plugins="contextmenu"
+								tree-contextmenu="scriptStep.treeContextMenu">
+							</js-tree>
+						</div-->
+					</div>
+					<!-- end SCRIPT type -->
+					
+					<!-- TRANSFORM type -->
+					<div ng-if="step.type == 'transform'" ng-controller="WorkflowStepTypeTransformCtrl as tranStep" ng-init="tranStep.stepGuid=step.guid; tranStep.datasets=workflow.datasets;">
+						<div style="font-weight:bold;">
+							Inputs for the Transformation
+							<span style="font-weight:normal;">(select from datasets below)</span>
+						</div>
+						<div>
+							<form class="form-horizontal">
+								<div class="form-group">
+									<div ng-repeat="(dsGuid, dataset) in workflow.datasets" class="col-lg-2 col-md-4 col-sm-12">
+										<div class="checkbox">
+											<label>
+												<input ng-checked="transStep.inputs.indexOf(dsGuid) >= 0" ng-click="tranStep.toggleInput(dsGuid)" type="checkbox"> {{dataset.name}}
+											</label>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<hr class="panel-separator"/>
+						
+						<div class="form-group">
+							<label for="sql-{{$index}}">Transformation SQL</label>
+							<textarea ng-model="tranStep.sql" id="sql-{{$index}}" class="form-control" rows="3" placeholder="Type SQL command that will be used to perform the transformation."></textarea>
+						</div>
+						<hr class="panel-separator"/>
+						<div class="form-group">
+							<label for="transIsSavingOutput-{{$index}}">Transformation Output</label>
+							<div class="checkbox">
+								<label>
+									<input ng-model="tranStep.isSavingOutput" type="checkbox"> Save Output
+								</label>
+							</div>
+						</div>
+						<div ng-if="tranStep.isSavingOutput" class="form-group">
+							<label for="transOutput-{{$index}}">Containing Output Folder <span style="font-weight:normal;">(choose a folder in the file browser)</span></label>
+							<input ng-model="tranStep.outputDisplayPath" id="transOutput-{{$index}}" type="text" class="form-control" placeholder="Select a Folder Below" disabled="disabled"/>
+						</div>
+						<div ng-if="tranStep.isSavingOutput" class="file-browser">
+							<div class="file-browser-heading" ng-click="isFileBrowserCollapsed = !isFileBrowserCollapsed" style="cursor:pointer;">
+								File Browser (you can create folders with mouse right-click)
+								<span class="glyphicon" ng-class="{'glyphicon-chevron-up':!isFileBrowserCollapsed, 'glyphicon-chevron-down':isFileBrowserCollapsed}" aria-hidden="true"></span>
+							</div>
+							<div class="file-browser-body" collapse="isFileBrowserCollapsed">
+								<!-- in jsTree: disable multiple nodes selection -->
+								<js-tree tree-core="{multiple:false}" 
+									tree-data="scope"
+									tree-model="tranStep.treeGetNodeChildren"
+									tree-nodes-to-load="tranStep.treeNodesToLoad"
+									tree-nodes-to-open="tranStep.treeNodesToOpen"
+									tree-events="loaded:tranStep.treeRootLoaded;select_node:tranStep.treeSelectNodeCB;"
+									tree-plugins="contextmenu"
+									tree-contextmenu="tranStep.treeContextMenu">
+								</js-tree>
+							</div>
+						</div>
+						<div ng-if="tranStep.isSavingOutput" class="form-group">
+							<label for="transOutput-{{$index}}-folder">Output Folder Name <span style="font-weight:normal;">(this folder gets created when the workflow is run)</span></label>
+							<input ng-model="tranStep.outputFolderName" id="transOutput-{{$index}}-folder" type="text" class="form-control" placeholder="Output Folder Name"/>
+						</div>
+						<div ng-if="tranStep.isSavingOutput" class="form-group">
+							<label for="transOutput-{{$index}}-table">Output Table Name</label>
+							<input ng-model="tranStep.outputTableName" id="transOutput-{{$index}}-table" type="text" class="form-control" placeholder="Output Table Name"/>
+						</div>
+					</div>
+					<!-- end TRANSFORM type -->
+					
+				</div>
+			</div>
+			<button ng-if="workflow.steps.length > 0" ng-click="workflow.addStep()" type="button" class="btn btn-success">Add Workflow Step</button>
+			<div style="clear:both;">
+				<button ng-click="workflow.saveWorkflow()" type="button" class="btn btn-primary pull-right">Save Workflow</button>
+				<a ui-sref="user.workbench.catalog.workflows" class="btn btn-default pull-right" role="button" style="margin-right:10px;">Cancel</a>
+			</div>
+		</div>
+	</div>
+</section>

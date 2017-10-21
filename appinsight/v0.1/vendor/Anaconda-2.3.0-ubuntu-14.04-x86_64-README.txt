@@ -1,0 +1,5 @@
+Anaconda-2.3.0-ubuntu-14.04-x86_64.tgz was created on 64-bit ubuntu 14.01 as follows:
+
+bash Anaconda-2.3.0-Linux-x86_64.sh -b -f -p /opt/Anaconda-2.3.0
+cd /opt
+tar czf /tmp/Anaconda-2.3.0-ubuntu-14.04-x86_64.tgz Anaconda-2.3.0

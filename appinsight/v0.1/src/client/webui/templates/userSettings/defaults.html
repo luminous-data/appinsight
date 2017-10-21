@@ -1,0 +1,38 @@
+<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12 right-col">
+	<header>
+		<!--div class="dropdown pull-right">
+			<a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="" ng-click="users.editUser('', 'Create')">Add User</a></li>
+			</ul>
+		</div-->
+		<p>User's Default Settings</p>
+	</header>
+	
+	<div class="row" style="margin-top:2px;">
+		<div class="col-md-4">
+			<form id="userDefaultsForm" name="userDefaultsForm" ng-submit="defaults.save()" role="form" class="form-horizontal well" novalidate>
+				<div class="form-group">
+					<label for="username" class="col-sm-3 control-label">Default Application</label>
+					<div class="col-sm-9">
+						<input name="username" ng-model="defaults.username" type="text" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="username" class="col-sm-3 control-label">Default Collection</label>
+					<div class="col-sm-9">
+						<input name="username" ng-model="defaults.username" type="text" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group error-box" ng-show="defaults.validationErrors.length > 0">
+					<div class="col-sm-9 col-sm-offset-3">
+						<div ng-repeat="error in defaults.validationErrors">
+							{{error.message}}
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-large btn-block btn-primary">Save</button>
+			</form>
+		</div>
+	</div>
+</div>

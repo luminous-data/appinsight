@@ -1,0 +1,35 @@
+<div class="modal-header">
+	<h4>
+		Selected File Contents
+		<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+	</h4>
+</div>
+<div class="modal-body">
+	<table class="table">
+		<thead>
+			<tr>
+				<td>&nbsp;</td>
+				<td ng-repeat="col in modal.selectedFileColumns">
+					<a href="" ng-click="modal.selectedFileChangeOrder(col)">
+						{{col}}
+						<span class="sortorder" ng-show="modal.selectedFileOrderKey === col" ng-class="{reverse:modal.selectedFileOrderReverse}"></span>
+					</a>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="row in modal.fileContForCurrentPage">
+				<td>{{(modal.fileContPage-1)*modal.fileContRowsPerPage + $index + 1}}.</td>
+				<td ng-repeat="colName in modal.selectedFileColumns">{{row[colName]}}</td>
+			</tr>
+			<tr ng-if="modal.selectedFileContents.length == 0">
+				<td colspan="{{modal.selectedFileColumns.length}}"><i>Nothing to display.</i></td>
+			</tr>
+		</tbody>
+	</table>
+	<pagination ng-model="modal.fileContPage" num-pages="modal.fileContPageCount" items-per-page="modal.fileContRowsPerPage"
+				total-items="modal.fileContRowCount" max-size="10" rotate="false" boundary-links="true"></pagination>
+</div>
+<div class="modal-footer" style="margin-top:-15px;">
+	<button ng-click="modal.cancel()" class="btn">Close</button>
+</div>

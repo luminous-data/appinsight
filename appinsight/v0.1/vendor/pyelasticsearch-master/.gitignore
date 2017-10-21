@@ -1,0 +1,11 @@
+.DS_Store
+*.pyc
+pyelasticsearch.egg-info/
+build
+dist
+MANIFEST
+.tox
+*.egg
+.idea
+.*.swp
+__pycache__/

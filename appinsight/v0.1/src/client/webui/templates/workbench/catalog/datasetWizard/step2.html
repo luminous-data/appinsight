@@ -1,0 +1,47 @@
+<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Create Dataset</h3>
+		</div>
+		<div class="panel-body">
+			<h4>STEP 2: Choose Source File</h4>
+			<div style="max-height:600px; max-width:100%; overflow:auto; margin-bottom:15px; border:1px solid #ddd;">
+				<js-tree 
+					tree-data="scope"
+					tree-model="wizard.treeGetNodeChildren"
+					tree-nodes-to-load="wizard.treeNodesToLoad"
+					tree-nodes-to-open="wizard.treeNodesToOpen"
+					tree-events="loaded:wizard.treeRootLoaded;open_node:wizard.treeOpenNodeCB;activate_node:wizard.treeActivateNodeCB;changed:wizard.treeSelectNodeCB;">
+				</js-tree>
+			</div>
+			<div>
+				<p>
+					<b>Selected folders</b>:
+					<i ng-if="wizard.dataset.dirs.length == 0">none</i>
+				</p>
+				<ul ng-if="wizard.dataset.dirs.length > 0" class="list-group">
+  					<li ng-repeat="dir in wizard.dataset.dirs" class="list-group-item">{{dir.text}}</li>
+				</ul>
+				<p>
+					<b>Selected files</b>:
+					<i ng-if="wizard.dataset.files.length == 0">none</i>
+				</p>
+				<ul ng-if="wizard.dataset.files.length > 0" class="list-group">
+  					<li ng-repeat="file in wizard.dataset.files" class="list-group-item">{{file.text}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<button ui-sref="user.workbench.catalog.datasetCreate.step1" class="btn btn-primary">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				Step 1
+			</button>
+			<button ng-click="wizard.saveDataset()" class="btn btn-primary pull-right">
+				Save Dataset
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+			<button ui-sref="user.workbench.catalog.datasets" class="btn btn-default pull-right" style="margin-right:10px;">Cancel</button>
+			<div style="clear:both; height:1px; width:100%;"></div>
+		</div>
+	</div>
+</div>

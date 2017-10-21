@@ -1,0 +1,107 @@
+<section class="col-lg-11 col-md-11 col-sm-9 col-xs-12">
+	<div>
+		<header>
+			<div class="dropdown pull-right">
+				<a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a ui-sref="user.workbench.catalog.datasetCreate">Create Dataset</a></li>
+					<li><a ui-sref="user.workbench.catalog.dataviewCreate">Create Dataview</a></li>
+				</ul>
+			</div>
+			<p>Datasets</p>
+		</header>
+		
+		<div class="users-table">
+			<table class="table">
+				<thead>
+					<tr>
+						<td>
+							<a href="" ng-click="wbDatasets.changeListOrder('list', 'name')">
+								Name
+								<span class="sortorder" ng-show="wbDatasets.list.orderKey === 'name'" ng-class="{reverse:wbDatasets.list.orderReverse}"></span>
+							</a>
+						</td>
+						<td>
+							<a href="" ng-click="wbDatasets.changeListOrder('list', 'dirs.length')">
+								Folders
+								<span class="sortorder" ng-show="wbDatasets.list.orderKey === 'dirs.length'" ng-class="{reverse:wbDatasets.list.orderReverse}"></span>
+							</a>
+						</td>
+						<td>
+							<a href="" ng-click="wbDatasets.changeListOrder('list', 'files.length')">
+								Files
+								<span class="sortorder" ng-show="wbDatasets.list.orderKey === 'files.length'" ng-class="{reverse:wbDatasets.list.orderReverse}"></span>
+							</a>
+						</td>
+						<td>
+							Actions
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-if="wbDatasets.list.all.length == 0">
+						<td colspan="3" style="text-align:center; font-style:italic;">No datasets</td>
+					</tr>
+					<tr ng-if="wbDatasets.list.all.length > 0"
+						ng-repeat="item in wbDatasets.list.all | orderBy:wbDatasets.list.orderKey:wbDatasets.list.orderReverse | startFrom:(wbDatasets.list.currentPage-1)*wbDatasets.list.numPerPage | limitTo:wbDatasets.list.numPerPage">
+						<td>{{item.name}}</td>
+						<td>
+							<span ng-if="item.dirString.length > 0">{{item.dirString}}</span>
+							<i ng-if="item.dirString.length == 0">none</i>
+						</td>
+						<td>
+							<span ng-if="item.fileString.length > 0">{{item.fileString}}</span>
+							<i ng-if="item.fileString.length == 0">none</i>
+						</td>
+						<td>
+							<button ng-click="wbDatasets.viewDataset(item.guid, item.name)" type="button" class="btn btn-default btn-xs">View</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- end of table -->
+		
+		<!-- pagination -->
+		<nav id="pagination-block">
+			<pagination ng-model="wbDatasets.list.currentPage" num-pages="wbDatasets.list.numPages" items-per-page="wbDatasets.list.numPerPage"
+				total-items="wbDatasets.list.numResults" rotate="false" boundary-links="true" max-size="10"></pagination>
+		</nav>
+		<!-- end of pagination -->
+		
+		<div ng-show="wbDatasets.selectedDataset.all.length > 0" class="panel panel-default" style="margin-top:-50px;">
+			<div class="panel-heading">{{wbDatasets.selectedDataset.name}} Dataset Contents</div>
+			<div class="insightal-table" style="margin-top:0; border:none;">
+				<table class="table">
+					<thead>
+						<tr>
+							<td>&nbsp;</td>
+							<td ng-repeat="col in wbDatasets.selectedDataset.columns">
+								<a href="" ng-click="wbDatasets.changeListOrder('selectedDataset', col)">
+									{{col}}
+									<span class="sortorder" ng-show="wbDatasets.selectedDataset.orderKey === col" ng-class="{reverse:wbDatasets.selectedDataset.orderReverse}"></span>
+								</a>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-if="wbDatasets.selectedDataset.all.length == 0">
+							<td colspan="{{wbDatasets.selectedFileColumns.length}}"><i>The file contains no data.</i></td>
+						</tr>
+						<tr ng-if="wbDatasets.selectedDataset.all.length > 0"
+							ng-repeat="row in wbDatasets.selectedDataset.all
+								| orderBy:wbDatasets.selectedDataset.orderKey:wbDatasets.selectedDataset.orderReverse
+								| startFrom:(wbDatasets.selectedDataset.currentPage-1)*wbDatasets.selectedDataset.numPerPage
+								| limitTo:wbDatasets.selectedDataset.numPerPage">
+							<td>{{(wbDatasets.selectedDataset.currentPage-1)*wbDatasets.selectedDataset.numPerPage + $index + 1}}.</td>
+							<td ng-repeat="colName in wbDatasets.selectedDataset.columns">{{row[colName]}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<pagination ng-model="wbDatasets.selectedDataset.currentPage" num-pages="wbDatasets.selectedDataset.numPages" items-per-page="wbDatasets.selectedDataset.numPerPage"
+					total-items="wbDatasets.selectedDataset.numResults" rotate="false" boundary-links="true" max-size="10"></pagination>
+			</div>
+		</div>
+	</div>
+</section>

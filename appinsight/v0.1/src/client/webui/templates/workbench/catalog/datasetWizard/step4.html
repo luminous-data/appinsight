@@ -1,0 +1,64 @@
+<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Create Dataset</h3>
+		</div>
+		<div class="panel-body">
+			<h4>STEP 4: Edit Column Definitions</h4>
+			<form class="form-horizontal">
+				<div class="insightal-table" style="border-top-width:0;">
+					<table id="columnsTBL" class="table" size-limits="{minWidth: 200*wizard.dataset.columns.length, maxWidth: 300*wizard.dataset.columns.length}">
+						<thead>
+							<tr>
+								<th ng-repeat="col in wizard.dataset.columns | orderBy:'order' track by $index">
+									<div style="font-weight:bold; text-align:center;">{{$index+1}}</div>
+									<label for="name-{{$index}}" class="control-label">Name</label>
+									<input id="name-{{$index}}" name="name-{{$index}}" ng-model="col.name" ng-class="{'form-control-invalid':!wizard.isValid('name-'+col.guid)}" type="text" class="form-control input-sm" required />
+									<label for="type-{{$index}}" class="control-label">Type</label>
+									<select id="type-{{$index}}" name="type-{{$index}}" ng-model="col.type" ng-class="{'form-control-invalid':!wizard.isValid('type-'+col.guid)}" type="text" class="form-control input-sm" required
+											ng-options="option.value as option.label for option in wizard.options.columnType">
+									</select>
+									<div class="checkbox">
+										<label>
+											<input name="show-{{$index}}" ng-checked="col.show" ng-click="col.show = !col.show" type="checkbox">
+											Show
+										</label>
+									</div>
+									<label for="order-{{$index}}" class="control-label">Move column to position:</label>
+									<select id="order-{{$index}}" name="order-{{$index}}" ng-model="_newColPosition" ng-class="{'form-control-invalid':!wizard.isValid('order-'+col.guid)}" type="text" class="form-control input-sm" required
+											ng-options="option for option in wizard.getColumnsOrderArray()" ng-change="wizard.changeColumnsOrder(col.guid, _newColPosition - 1); _newColPosition = undefined;">
+									</select>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="row in wizard.sourceFileContents">
+								<!--td ng-repeat="item in row track by $index">{{item}}</td-->
+								<td ng-repeat="colName in wizard.sourceFileColumns">{{row["__"+colName]}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- end of table -->
+				<div class="form-group error-box" ng-show="wizard.validationErrors.length > 0">
+					<div class="col-sm-9 col-sm-offset-3">
+						<div ng-repeat="error in wizard.validationErrors">
+							{{error.message}}
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="panel-footer">
+			<button ui-sref="user.workbench.catalog.datasetCreate.step3" class="btn btn-primary">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				Step 3
+			</button>
+			<button ng-click="wizard.goToStep(5, 'user.workbench.catalog.datasets')" class="btn btn-primary pull-right">
+				Save Dataset
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+			<button ui-sref="user.workbench.catalog.datasets" class="btn btn-default pull-right" style="margin-right:10px;">Cancel</button>
+			<div style="clear:both; height:1px; width:100%;"></div>
+		</div>
+	</div>
+</div>

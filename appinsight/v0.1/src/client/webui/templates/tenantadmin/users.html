@@ -1,0 +1,54 @@
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+	<ul class="nav nav-pills nav-stacked nav-truncate">
+		<li ng-class="{ active: $state.includes('admin.tenantadmin.users')  }">
+			<a ui-sref="admin.tenantadmin.users">Users</a>
+		</li>
+		<li ng-class="{ active: $state.includes('admin.tenantadmin.data') }">
+			<a ui-sref="admin.tenantadmin.data">Data</a>
+		</li>
+	</ul>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 right-col">
+	<header>
+		<div class="dropdown pull-right">
+			<a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="" ng-click="users.editUser('', 'Create')">Add User</a></li>
+			</ul>
+		</div>
+		<p>Users</p>
+	</header>
+	
+	<div class="users-table">
+		<table class="table">
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Email</td>
+					<td>Role</td>
+					<td>Actions</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in users.userListDisplayed">
+					<td>{{user.name}}</td>
+					<td>{{user.email}}</td>
+					<td>{{users.getRoleNameByBitmask(user.role.bitMask)}}</td>
+					<td>
+						<!--a href="#">View</a-->
+						<a href="" ng-click="users.editUser(user.guid, 'Edit')">Edit</a>
+						<a href="" ng-click="users.deleteUser(user.guid)">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- end of table -->
+	
+	<!-- pagination -->
+	<nav id="pagination-block">
+		<pagination ng-model="users.userList.currentPage" num-pages="users.userList.numPages" items-per-page="users.userList.numPerPage"
+			total-items="users.userList.numResults" rotate="false" boundary-links="true"></pagination>
+	</nav>
+	<!-- end of pagination -->
+</div>

@@ -1,0 +1,27 @@
+<div class="modal-header">
+	<h4>
+		Execute Workflow '{{modal.workflow.name}}'
+		<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+	</h4>
+</div>
+<div class="modal-body">
+	<h4>Edit step parameters</h4>
+	<div ng-repeat="step in modal.workflow.steps" class="panel panel-default">
+		<div class="panel-heading">Step {{$index+1}}: <b>{{step.name}}</b></div>
+		<div class="panel-body">
+			<div style="background-color:#fff; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; color:#333; display:inline-block; padding:6px 12px; margin-bottom:5px;">Step Parameters</div>
+			<in-json-tree json-model="modal.workflow.steps[$index]" options="modal.jsonTreeOptions"/>
+		</div>
+	</div>
+	<!--div class="panel panel-default">
+		<div class="panel-heading">Workflow Step Parameters</div>
+		<div class="panel-body">
+			<button type="button" class="btn btn-default" style="margin-bottom:5px">Steps</button>
+			<in-json-tree json-model="modal.workflow.steps"/>
+		</div>
+	</div-->
+</div>
+<div class="modal-footer" style="margin-top:-15px;">
+	<button ng-click="modal.execute()" class="btn btn-primary pull-right">Execute</button>
+	<button ng-click="modal.cancel()" class="btn btn-default">Cancel</button>
+</div>

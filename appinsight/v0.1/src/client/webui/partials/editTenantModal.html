@@ -1,0 +1,50 @@
+<form name="tenantEditForm" novalidate class="form-horizontal" role="form">
+	<div class="modal-header">
+		<h4>
+			{{admin.userAction}} Tenant
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			<label for="tenantName" class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-9">
+				<input id="tenantName" name="tenantName" ng-model="admin.currentTenant.name" ng-class="{'form-control-invalid':!modal.isValid('tenantName')}" type="text" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="tenantEmail" class="col-sm-3 control-label">E-mail</label>
+			<div class="col-sm-9">
+				<input id="tenantEmail" name="tenantEmail" ng-model="admin.currentTenant.email" ng-class="{'form-control-invalid':!modal.isValid('tenantEmail')}" type="email" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="tenantPassword" class="col-sm-3 control-label">Password</label>
+			<div class="col-sm-9">
+				<input id="tenantPassword" name="tenantPassword" ng-model="admin.currentTenant.password" ng-class="{'form-control-invalid':!modal.isValid('tenantPassword')}" type="password" class="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="tenantPasswordCheck" class="col-sm-3 control-label">Retype Password</label>
+			<div class="col-sm-9">
+				<input id="tenantPasswordCheck" name="tenantPasswordCheck" ng-model="admin.currentTenant.passwordCheck" ng-class="{'form-control-invalid':!modal.isValid('tenantPasswordCheck')}" type="password" class="form-control" />
+			</div>
+		</div>
+		<div class="form-group" style="margin-top:-15px;" ng-show="admin.userAction == 'Edit'">
+			<div class="col-sm-9 col-sm-offset-3">
+				If you leave the Password field empty, the password will stay unchanged.
+			</div>
+		</div>
+		<div class="form-group error-box" ng-show="modal.validationErrors.length > 0">
+			<div class="col-sm-9 col-sm-offset-3">
+				<div ng-repeat="error in modal.validationErrors">
+					{{error.message}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.save(tenantEditForm)" ng-disabled="modal.isUnchanged(admin.currentTenantOriginal, admin.currentTenant)" class="btn btn-primary pull-right">Save</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+</form>

@@ -1,0 +1,45 @@
+<form name="pluginUploadForm" novalidate class="form-horizontal" role="form">
+	<div class="modal-header">
+		<h4>
+			Upload Plugin
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body container-fluid">
+		<div class="form-group row">
+			<label for="pluginName" class="col-sm-5 control-label">Plugin Name</label>
+			<div class="col-sm-7">
+				<input ng-model="modal.pluginName" name="pluginName" type="text" class="form-control"
+					   ng-class="{'form-control-invalid':!modal.isValid('pluginName')}" required/>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="pluginDoc" class="col-sm-5 control-label">Document types this plugin applies to</label>
+			<div class="col-sm-7">
+				<label ng-repeat="docName in modal.documents" class="checkbox" style="left:20px;"
+					ng-if="modal.documents.length > 0">
+					<input name="pluginDoc" value="{{docName}}" ng-checked="modal.pluginApplyToDocs.indexOf(docName) >= 0" ng-click="modal.toggleSelection(modal.pluginApplyToDocs, docName)" type="checkbox">
+					{{docName}}
+				</label>
+				<i ng-if="modal.documents.length == 0">No documents available.</i>
+			</div>							
+		</div>
+		<div class="form-group row">
+			<label for="pluginFile" class="col-sm-5 control-label">Plugin File</label>
+			<div class="col-sm-7">
+				<input name="pluginFile" file-model="modal.pluginFile" type="file"/>
+			</div>
+		</div>
+		<div class="form-group error-box" ng-show="modal.validationErrors.length > 0">
+			<div class="col-sm-9 col-sm-offset-3">
+				<div ng-repeat="error in modal.validationErrors">
+					{{error.message}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.uploadPlugin(pluginUploadForm)" class="btn btn-primary pull-right">Upload</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+</form>

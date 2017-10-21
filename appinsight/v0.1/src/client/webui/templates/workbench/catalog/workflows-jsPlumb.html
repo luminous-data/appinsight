@@ -1,0 +1,65 @@
+<div>
+	<header>
+		<div class="dropdown pull-right">
+			<a toggle="dropdown" class="dropdown-toggle toggle-sign" href=""><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="" ng-click="wbDatasets.openDatasetWizard()">Create Workflow</a></li>
+			</ul>
+		</div>
+		<p>Workflow</p>
+	</header>
+	
+	<div ng-controller="WbWorkflowsWizardCtrl as wizard" js-plumb-container="jsPlumb1" style="border:1px solid #CCCCCC; height:500px;">
+		<div ng-repeat="stateEl in wizard.states"
+			js-plumb-state="{{stateEl.id}}" x="{{stateEl.x}}" y="{{stateEl.y}}"
+			class="panel panel-default">
+			<div class="panel-body">
+				{{stateEl.caption}}
+			</div>
+			<div class="endpoint" style="cursor:pointer; width:10px; height:10px; background-color:orange;"></div>
+		</div>
+		<!--div ng-repeat="stateEl in wizard.states" js-plumb-state="{{stateEl.id}}" x="{{stateEl.x}}" y="{{stateEl.y}}" style="border:1px solid red; width:75px; height:75px;">
+			{{stateEl.caption}}
+		</div-->
+		<!--js-plumb-transform ng-repeat="transEl in wizard.transforms" x="300" y="10">
+			ELEMENT 2
+		</js-plumb-transform-->
+		<!--div id="el1" style="position:absolute; left:0;  border:1px solid red; width:75px; height:75px;">ELEMENT 1</div>
+		<div id="el2" style="position:absolute; right:0; border:1px solid red; width:75px; height:75px;">ELEMENT 2</div-->
+	</div>
+	
+	<!--div class="users-table">
+		<table class="table">
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>User</td>
+					<td>Last Updated</td>
+					<td>Files</td>
+					<td>Columns</td>
+					<td>Actions</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in wbDatasets.datasets">
+					<td>{{item.name}}</td>
+					<td>{{item.user}}</td>
+					<td>{{wbDatasets.formatDate(item.lastUpdated)}}</td>
+					<td><span ng-repeat="file in item.files">{{file}}, </span></td>
+					<td><span ng-repeat="column in item.columns">{{column.name}}, </span></td>
+					<td>
+						<a href="" click="xxx(user.guid, 'Edit')">Edit</a>
+						<a href="" click="xxx(user.guid)">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div--><!-- end of table -->
+	
+	<!-- pagination -->
+	<!--nav id="pagination-block">
+		<pagination ng-model="users.userList.currentPage" num-pages="users.userList.numPages" items-per-page="users.userList.numPerPage"
+			total-items="users.userList.numResults" rotate="false" boundary-links="true"></pagination>
+	</nav-->
+	<!-- end of pagination -->
+</div>

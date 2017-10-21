@@ -1,0 +1,52 @@
+<form name="createFacetForm" novalidate class="form-horizontal" role="form">
+	<div class="modal-header">
+		<h4>
+			Create Facet on Field "{{modal.node.text}}"
+			<button ng-click="modal.cancel()" type="button" class="close" aria-hidden="true">&times;</button>
+		</h4>
+	</div>
+	<div class="modal-body container-fluid">
+		<div ng-show="modal.node.fieldData.type == 'string'" class="form-group row">
+			<label for="facetName" class="col-sm-5 control-label">Facet Name</label>
+			<div class="col-sm-7">
+				<input ng-model="modal.facetName" name="facetName" type="text" class="form-control"
+					   ng-class="{'form-control-invalid':!modal.isValid('facetName')}" required/>
+			</div>
+		</div>
+		<div ng-show="modal.node.fieldData.type == 'long' || modal.node.fieldData.type == 'double'" class="form-group row">
+			<!--label for="numericBuckets" class="col-sm-5 control-label">Plugin Name</label>
+			<div class="col-sm-7">
+				<input ng-model="modal.facetNumericBuckets" name="numericBuckets" type="text" class="form-control"
+					   ng-class="{'form-control-invalid':!modal.isValid('numericBuckets')}" required/>
+			</div-->
+			<div class="col-sm-12"><i>Cannot create facet on this field type.</i></div>
+		</div>
+		<div ng-show="modal.node.fieldData.type == 'date'" class="form-group row">
+			<label for="facetName" class="col-sm-5 control-label">Facet Name</label>
+			<div class="col-sm-7">
+				<input ng-model="modal.facetName" name="facetName" type="text" class="form-control"
+					   ng-class="{'form-control-invalid':!modal.isValid('facetName')}" required/>
+				<!--label for="datetimeBuckets" class="col-sm-6 control-label">Facet Category Size</label>
+				<div class="col-sm-6">
+					<select id="datetimeBuckets" name="datetimeBuckets" class="form-control">
+						<option value="hour">Hour</option>
+						<option value="day">Day</option>
+						<option value="month">Month</option>
+						<option value="year">Year</option>
+					</select>
+				</div-->
+			</div>
+		</div>
+		<div class="form-group error-box" ng-show="modal.validationErrors.length > 0">
+			<div class="col-sm-9 col-sm-offset-3">
+				<div ng-repeat="error in modal.validationErrors">
+					{{error.message}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" style="margin-top:-15px;">
+		<button ng-click="modal.createFacet(createFacetForm)" ng-disabled="modal.node.fieldData.type == 'long' || modal.node.fieldData.type == 'double'" class="btn btn-primary pull-right">Create</button>
+		<button ng-click="modal.cancel()" class="btn">Cancel</button>
+	</div>
+</form>
